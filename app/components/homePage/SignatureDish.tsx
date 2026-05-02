@@ -27,12 +27,12 @@ export default function SignatureDish({ featured, t, language }: SignatureDishPr
             />
           </div>
           {/* Badge */}
-          <div className="absolute -bottom-16 -right-8 md:-right-16 w-56 h-56 bg-white text-black rounded-full flex flex-col items-center justify-center p-10 text-center shadow-2xl border-[16px] border-[#080808] rotate-12 group-hover:rotate-0 transition-all duration-1000">
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-40">
+          <div className="absolute -bottom-16 -right-8 md:-right-16 w-56 h-56 bg-secondary text-white rounded-full flex flex-col items-center justify-center p-10 text-center shadow-2xl border-[16px] border-[#080808] rotate-12 group-hover:rotate-0 transition-all duration-1000">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-60">
               Authentic Excellence
             </span>
             <span className="serif text-5xl font-black italic leading-none">#01</span>
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] mt-2 opacity-40">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] mt-2 opacity-60">
               Tangier Edition
             </span>
           </div>

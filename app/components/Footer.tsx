@@ -17,11 +17,8 @@ export default function Footer() {
           
           {/* Brand */}
           <div className="space-y-10 max-w-sm">
-            <div>
-              <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-[0.9] text-white">
-                RESTAURANT<br/>
-                <span className="text-primary italic serif">HERITAGE.</span>
-              </h2>
+            <div className="flex items-center gap-6">
+              <img src="/Logo Mahrousa.png" alt="Mahrousa Logo" className="h-20 w-auto" />
             </div>
             <p className="text-lg font-light text-white/30 leading-relaxed italic serif">
               "{t.footer.quote}"

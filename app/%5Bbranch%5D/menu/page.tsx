@@ -47,7 +47,6 @@ export default function MenuPage() {
   const handleQuickAdd = (e: React.MouseEvent, item: any) => {
     e.stopPropagation();
     addToCart(item);
-    // Visual feedback could be added here
   };
 
   if (!branch) return <div className="p-8 text-center bg-black h-screen flex flex-col items-center justify-center">
@@ -133,28 +132,33 @@ export default function MenuPage() {
                 <img src={item.image} alt={item.name} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-0 transition-opacity" />
                 
-                {/* Immediate Plus Button */}
+                {/*
+                  FIX: Removed the nested overlay <div> and duplicate <span> that used
+                  `group-hover:translate-y-0` — because `group` here refers to the card's
+                  parent div, so hovering anywhere on the card was sliding a white div up
+                  behind the + sign. Now it's a plain button with a direct hover color swap.
+                */}
                 <button 
                   onClick={(e) => handleQuickAdd(e, item)}
-                  className="absolute bottom-10 right-10 w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-black shadow-2xl hover:scale-110 active:scale-95 transition-all z-20"
+                  className="absolute bottom-10 right-10 w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-black shadow-2xl hover:scale-110 hover:bg-white hover:text-black active:scale-95 transition-all z-20 outline-none"
                 >
                   +
                 </button>
 
                 <div className="absolute bottom-10 left-10 z-10 pr-20">
-                   <span className="text-[10px] font-black uppercase tracking-widest text-primary mb-2 block opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">Discover</span>
-                   <h3 className="text-3xl font-black tracking-tighter leading-none serif italic">{item.name}</h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary mb-2 block opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">Discover</span>
+                  <h3 className="text-3xl font-black tracking-tighter leading-none serif italic">{item.name}</h3>
                 </div>
               </div>
               <div className="px-4 flex justify-between items-start gap-4">
                 <div>
-                   <p className="text-xs font-medium opacity-30 line-clamp-2 leading-relaxed mb-4">{item.description}</p>
-                   <button 
+                  <p className="text-xs font-medium opacity-30 line-clamp-2 leading-relaxed mb-4">{item.description}</p>
+                  <button 
                     onClick={() => setSelectedItem(item)}
                     className="text-[9px] font-black uppercase tracking-[0.2em] border-b border-white/10 pb-1 hover:border-primary hover:text-primary transition-all"
-                   >
-                     View Details
-                   </button>
+                  >
+                    View Details
+                  </button>
                 </div>
                 <span className="text-xl font-black text-primary tracking-tighter shrink-0">{item.price} DH</span>
               </div>
@@ -166,8 +170,8 @@ export default function MenuPage() {
       {/* Elite Floating checkout button */}
       {cart.length > 0 && (
         <div className="fixed bottom-12 left-0 right-0 flex justify-center px-10 z-[110]">
-          <button onClick={() => setIsCartSidebarOpen(true)} className="w-full max-w-lg bg-white text-black p-6 rounded-[2.5rem] shadow-2xl flex justify-between items-center group overflow-hidden relative">
-            <div className="absolute inset-0 bg-primary translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+          <button onClick={() => setIsCartSidebarOpen(true)} className="w-full max-w-lg bg-white text-black p-6 rounded-[2.5rem] shadow-2xl flex justify-between items-center group relative" style={{isolation: 'isolate'}}>
+            <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem]" />
             <div className="relative z-10 flex items-center gap-6">
               <div className="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center font-black group-hover:bg-white group-hover:text-black transition-colors">{cart.length}</div>
               <span className="font-black text-xs uppercase tracking-[0.2em] group-hover:text-white transition-colors">Review Selection</span>

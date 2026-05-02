@@ -55,10 +55,10 @@ export default function CartSidebar({ isOpen, onClose, onCheckout }: { isOpen: b
           ) : (
             <div className="space-y-6">
               {cart.map((item) => (
-                <div key={item.id} className="flex gap-6 p-5 rounded-3xl border border-white/5 bg-white/[0.02] hover:border-primary/20 transition-all group">
+                <div key={item.id} className="flex gap-6 p-5 rounded-3xl border border-white/5 bg-white/[0.02] hover:border-white/10 transition-all group">
                   {/* Item Thumbnail */}
-                  <div className="w-20 h-20 bg-white/5 rounded-2xl overflow-hidden shrink-0 border border-white/5 group-hover:border-primary/20 transition-colors flex items-center justify-center text-2xl">
-                    ✨
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-white/5 bg-[#0a0a0a]">
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100" />
                   </div>
                   {/* Item Info */}
                   <div className="flex-1 min-w-0 space-y-3">

@@ -95,10 +95,10 @@ export default function MenuPage() {
           </div>
           
         {/* Dynamic Navigation & Insights */}
-        <div className={`sticky top-28 z-[100] -mx-8 md:-mx-12 px-8 md:px-12 py-6 transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-3xl border-b border-white/5 shadow-2xl' : ''}`}>
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
-            {/* Categories */}
-            <nav className="flex gap-4 md:gap-6 overflow-x-auto no-scrollbar w-full lg:w-auto scroll-smooth py-1">
+        <div className={`sticky top-28 z-[100] -mx-8 md:-mx-12 px-8 md:px-12 py-4 transition-all duration-500 ${scrolled ? 'bg-black/95 backdrop-blur-3xl border-b border-white/5 shadow-2xl' : ''}`}>
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+            {/* Minimalist Filters */}
+            <nav className="flex gap-3 overflow-x-auto no-scrollbar w-full lg:w-auto scroll-smooth py-1">
               {menuCategories.map((cat) => {
                 const count = (menuItems as any[]).filter((item: any) => cat.id === 'featured' ? item.featured : item.categoryId === cat.id).length;
                 const isActive = activeCategory === cat.id && !searchQuery;
@@ -108,16 +108,16 @@ export default function MenuPage() {
                   <button
                     key={cat.id}
                     onClick={() => { setActiveCategory(cat.id); setSearchQuery(''); }}
-                    className={`group relative flex items-center gap-4 px-10 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] whitespace-nowrap transition-all border shrink-0 ${
+                    className={`group flex items-center gap-4 px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em] whitespace-nowrap transition-all border ${
                       isActive 
-                        ? 'bg-white text-black border-white shadow-[0_20px_50px_rgba(255,255,255,0.1)]' 
-                        : 'bg-white/5 border-white/5 text-white/40 hover:border-white/20 hover:text-white hover:bg-white/10'
+                        ? 'bg-primary border-primary text-white shadow-lg' 
+                        : 'bg-white/5 border-white/5 text-white/30 hover:border-white/20 hover:text-white'
                     }`}
                   >
-                    <span className="text-xl group-hover:rotate-12 transition-transform">{cat.icon}</span>
+                    <span className="text-lg">{cat.icon}</span>
                     <span>{translatedName}</span>
                     {count > 0 && (
-                      <span className={`ml-2 px-2 py-0.5 rounded-lg text-[8px] font-black ${isActive ? 'bg-black/10 text-black' : 'bg-white/10 text-white/30'}`}>
+                      <span className={`px-2 py-0.5 rounded-lg text-[8px] font-black ${isActive ? 'bg-white/10 text-white' : 'bg-white/5 text-white/20'}`}>
                         {count}
                       </span>
                     )}
@@ -128,12 +128,12 @@ export default function MenuPage() {
 
             {/* Advanced Filters & Sorting */}
             <div className="flex items-center gap-6 w-full lg:w-auto justify-end">
-              <div className="flex items-center gap-4 bg-white/5 border border-white/8 p-3 rounded-xl px-6 backdrop-blur-3xl group hover:border-primary/40 transition-colors">
-                <span className="text-[9px] font-black uppercase tracking-[0.4em] opacity-30 group-hover:opacity-100 transition-opacity whitespace-nowrap">{t.menu_labels.sort_by}</span>
+              <div className="flex items-center gap-4 bg-white/5 border border-white/8 p-2 rounded-full px-6 backdrop-blur-3xl group hover:border-primary/40 transition-colors">
+                <span className="text-[8px] font-black uppercase tracking-[0.3em] opacity-30 group-hover:opacity-100 transition-opacity whitespace-nowrap">{t.menu_labels.sort_by}</span>
                 <select 
                   value={sortType}
                   onChange={(e) => setSortType(e.target.value)}
-                  className="bg-transparent border-none outline-none font-black text-[10px] uppercase tracking-[0.2em] text-primary cursor-pointer hover:text-white transition-colors"
+                  className="bg-transparent border-none outline-none font-black text-[9px] uppercase tracking-[0.1em] text-primary cursor-pointer hover:text-white transition-colors"
                 >
                   <option value="curated" className="bg-[#050505]">{t.menu_labels.curated}</option>
                   <option value="price-low" className="bg-[#050505]">{t.menu_labels.price_low}</option>
@@ -144,7 +144,7 @@ export default function MenuPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-x-12 md:gap-y-32 pb-64 pt-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 md:gap-x-12 md:gap-y-24 pb-64 pt-20">
           {filteredItems
             .sort((a: any, b: any) => {
               if (sortType === 'price-low') return a.price - b.price;
@@ -156,53 +156,49 @@ export default function MenuPage() {
               const itemDesc = item.descriptions[language as keyof typeof item.descriptions] || item.description;
               
               return (
-              <div key={item.id} className="group animate-fade-in space-y-12" style={{ animationDelay: `${0.1 * idx}s` }}>
+              <div key={item.id} className="group animate-fade-in space-y-6" style={{ animationDelay: `${0.1 * idx}s` }}>
+                {/* Image Card — clean overlay, no button overlap */}
                 <div 
                   onClick={() => setSelectedItem(item)}
-                  className="relative aspect-[3/4] rounded-[5rem] overflow-hidden border border-white/5 bg-white/5 shadow-2xl transition-all duration-1000 group-hover:scale-[1.03] group-hover:border-primary/40 cursor-pointer"
+                  className="relative aspect-[3/4] rounded-[4rem] overflow-hidden border border-white/5 bg-white/5 shadow-2xl transition-all duration-1000 group-hover:scale-[1.02] group-hover:border-primary/30 cursor-pointer"
                 >
-                  <img src={item.image} alt={itemName} className="w-full h-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-105 group-hover:scale-100" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-90 transition-all duration-700" />
-                  
+                  <img src={item.image} alt={itemName} className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-105 group-hover:scale-100" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
+
+                  {/* Item name — full width, no button interference */}
+                  <div className="absolute bottom-8 left-8 right-8 z-10">
+                    <h3 className="text-2xl md:text-3xl font-black tracking-tighter leading-tight serif italic text-white drop-shadow-lg">{itemName}</h3>
+                  </div>
+                </div>
+
+                {/* Info Row — price, explore button, and + button all in one clean band */}
+                <div className="px-2 flex items-center gap-4">
+                  {/* Price block */}
+                  <div className="shrink-0 text-left">
+                    <span className="text-xl font-black text-primary tracking-tighter leading-none block">{item.price}</span>
+                    <span className="text-[8px] font-black uppercase tracking-widest text-white/20">DH</span>
+                  </div>
+
+                  {/* Explore button — fills remaining space */}
                   <button 
-                    onClick={(e) => handleQuickAdd(e, item)}
-                    className="group absolute bottom-14 right-14 w-24 h-24 bg-primary text-white rounded-full flex items-center justify-center text-4xl font-black shadow-[0_20px_50px_rgba(255,90,0,0.4)] hover:scale-110 active:scale-95 transition-all z-20 outline-none overflow-hidden border border-white/10"
+                    onClick={() => setSelectedItem(item)}
+                    className="group relative flex-1 py-3 overflow-hidden rounded-full bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-[0.3em] text-white/30 hover:text-white transition-all text-center"
                   >
-                    <span className="relative z-10 font-light">+</span>
-                    <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                    <span className="absolute inset-0 flex items-center justify-center text-black font-black text-2xl translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
-                      +
-                    </span>
+                    <span className="relative z-10">{t.menu_labels.narrative} →</span>
+                    <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
                   </button>
 
-                  <div className="absolute bottom-12 left-12 z-10 pr-24 space-y-4">
-                    <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700 delay-100">
-                        <span className="text-[10px] font-black uppercase tracking-[0.6em] text-primary italic">{t.menu_labels.heritage}</span>
-                        <div className="w-10 h-[1px] bg-primary/40" />
-                    </div>
-                    <h3 className="text-3xl md:text-4xl font-black tracking-tighter leading-none serif italic text-white">{itemName}</h3>
-                  </div>
+                  {/* Quick Add — clean hover, no overlay bleed */}
+                  <button 
+                    onClick={(e) => handleQuickAdd(e, item)}
+                    className="shrink-0 w-12 h-12 bg-primary hover:bg-white text-white hover:text-black rounded-full flex items-center justify-center text-xl font-black shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 outline-none border border-white/10"
+                  >
+                    +
+                  </button>
                 </div>
 
-                <div className="px-6 flex justify-between items-start gap-10">
-                  <div className="space-y-6 flex-1">
-                    <p className="text-sm font-light text-white/50 leading-relaxed italic serif line-clamp-2 hover:line-clamp-none transition-all">"{itemDesc}"</p>
-                    <button 
-                      onClick={() => setSelectedItem(item)}
-                      className="group relative px-8 py-4 overflow-hidden rounded-full bg-white/5 border border-white/10 text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-white transition-all hover:scale-105 active:scale-95 shadow-xl"
-                    >
-                      <span className="relative z-10">{t.menu_labels.narrative} →</span>
-                      <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
-                      <span className="absolute inset-0 flex items-center justify-center text-white font-black uppercase tracking-[0.4em] text-[9px] translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
-                        Explore →
-                      </span>
-                    </button>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <span className="text-3xl font-black text-primary tracking-tighter block leading-none">{item.price}</span>
-                    <span className="text-[9px] font-black uppercase tracking-widest text-white/20 mt-1 block">DH</span>
-                  </div>
-                </div>
+                {/* Description — subtle, beneath the action row */}
+                <p className="px-2 text-xs font-light text-white/30 leading-relaxed italic serif line-clamp-2">"{itemDesc}"</p>
               </div>
             )})
           }
@@ -211,12 +207,12 @@ export default function MenuPage() {
 
       <Footer />
 
-      {/* Floating Cart CTA - Refined & Solid */}
+      {/* Floating Cart CTA - Fully Solid */}
       {cart.length > 0 && (
         <div className="fixed bottom-12 left-0 right-0 flex justify-center px-6 z-[120] animate-fade-in">
-          <button 
-            onClick={() => setIsCartSidebarOpen(true)} 
-            className="w-full max-w-lg bg-primary text-white py-6 px-10 rounded-full shadow-[0_30px_60px_rgba(0,0,0,0.6)] flex justify-between items-center group active:scale-95 transition-all outline-none border border-white/10"
+          <button
+            onClick={() => setIsCartSidebarOpen(true)}
+            className="w-full max-w-lg bg-[#EC3F28] text-white py-6 px-10 rounded-full shadow-2xl flex justify-between items-center group active:scale-95 transition-all outline-none border border-white"
           >
             {/* Content Left */}
             <div className="flex items-center gap-6">
@@ -228,18 +224,18 @@ export default function MenuPage() {
                 <span className="block text-[10px] font-black uppercase tracking-[0.2em]">{t.cart_labels.subtitle}</span>
               </div>
             </div>
-            
+
             {/* Content Right */}
             <div className="flex items-center gap-8">
-              <div className="text-right pr-8 border-r border-white/20">
+              <div className="text-right pr-8 border-r border-white/40">
                 <span className="block text-[8px] font-black uppercase tracking-[0.4em] text-white/60 mb-0.5">{t.total}</span>
                 <div className="font-black text-3xl tracking-tighter flex items-end gap-1 leading-none">
-                  {totalPrice} 
-                  <span className="text-[10px] opacity-60 font-bold mb-0.5">DH</span>
+                  {totalPrice}
+                  <span className="text-[10px] font-bold mb-0.5">DH</span>
                 </div>
               </div>
 
-              {/* Animation Arrow */}
+              {/* Arrow */}
               <div className="text-2xl group-hover:translate-x-2 transition-transform duration-500">
                 →
               </div>

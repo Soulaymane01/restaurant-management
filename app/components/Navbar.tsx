@@ -17,10 +17,8 @@ export default function Navbar({ scrolled, variant = 'landing', onCartOpen }: { 
           
           {/* Brand */}
           <div className="flex items-center gap-14">
-            <Link href="/" className="text-2xl font-black tracking-tighter flex items-center gap-2 group">
-              <span className="text-white group-hover:text-primary transition-colors uppercase">The</span> 
-              <span className="text-primary italic serif">Art</span> 
-              <span className="text-white group-hover:text-primary transition-colors uppercase">of Taste.</span>
+            <Link href="/" className="flex items-center gap-4 group">
+              <img src="/Logo Mahrousa.png" alt="Mahrousa Logo" className="h-16 md:h-20 w-auto group-hover:scale-110 transition-transform duration-700" />
             </Link>
             
             {/* Desktop Navigation */}

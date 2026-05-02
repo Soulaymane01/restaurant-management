@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+}
+
 :root {
-  --primary: #FF5A00;
-  --primary-dark: #cc4800;
-  --secondary: #00A082;
+  --primary: #EC3F28;
+  --primary-dark: #cc3520;
+  --secondary: #3950A1;
   --background: #0a0a0a;
   --foreground: #f4f4f4;
   --muted: #1e1e1e;
@@ -25,8 +31,6 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -58,8 +62,6 @@ a {
 
 button {
   cursor: pointer;
-  border: none;
-  background: none;
   font-family: inherit;
 }
 

@@ -115,7 +115,7 @@ export default function ItemDetailModal({
         <div className="p-10 pt-0 md:p-16 md:pt-0">
           <button 
             onClick={handleAdd} 
-            className="group relative w-full py-8 overflow-hidden rounded-full bg-primary text-white font-black uppercase tracking-[0.4em] text-[10px] transition-all hover:scale-[1.02] active:scale-95 shadow-[0_20px_50px_rgba(255,90,0,0.3)] border border-primary/20"
+            className="group relative w-full py-8 overflow-hidden rounded-full bg-[#EC3F28] text-white font-black uppercase tracking-[0.4em] text-[10px] transition-all hover:scale-[1.02] active:scale-95 shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/10"
           >
             <span className="relative z-10">{t.modal.incorporate} • {item.price} DH</span>
             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
