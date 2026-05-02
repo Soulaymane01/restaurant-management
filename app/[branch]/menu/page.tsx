@@ -33,16 +33,19 @@ export default function MenuPage() {
 
   const branch = branches.find(b => b.id === params.branch);
 
-  const menuItems = useMemo(() => {
-    if (typeof window === 'undefined') return initialMenuItems;
+  const [menuItems, setMenuItems] = useState(initialMenuItems);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
     const customMenu = JSON.parse(localStorage.getItem('restaurant_custom_menu') || 'null');
-    return customMenu || initialMenuItems;
+    if (customMenu) setMenuItems(customMenu);
   }, []);
 
   const filteredItems = useMemo(() => {
-    return (menuItems as any[] || initialMenuItems).filter((item: any) => {
-      const itemName = item.names?.[language] || item.name || '';
-      const itemDesc = item.descriptions?.[language] || item.description || '';
+    return menuItems.filter((item: any) => {
+      const itemName = item.names?.[language as keyof typeof item.names] || item.name || '';
+      const itemDesc = item.descriptions?.[language as keyof typeof item.descriptions] || item.description || '';
       
       const matchesSearch = itemName.toLowerCase().includes(searchQuery.toLowerCase()) || 
                            itemDesc.toLowerCase().includes(searchQuery.toLowerCase());
@@ -64,7 +67,8 @@ export default function MenuPage() {
     </div>
   );
 
-  const branchName = (branch as any).names[language as keyof typeof branch.names];
+  const branchName = branch.names[language as keyof typeof branch.names] || branch.id;
+  const branchLocation = branch.locations[language as keyof typeof branch.locations] || '';
 
   return (
     <main className="min-h-screen bg-[#050505] text-white selection:bg-primary">
@@ -152,8 +156,8 @@ export default function MenuPage() {
               return 0;
             })
             .map((item: any, idx: number) => {
-              const itemName = item.names[language as keyof typeof item.names] || item.name;
-              const itemDesc = item.descriptions[language as keyof typeof item.descriptions] || item.description;
+              const itemName = item.names?.[language as keyof typeof item.names] || item.name || '';
+              const itemDesc = item.descriptions?.[language as keyof typeof item.descriptions] || item.description || '';
               
               return (
               <div key={item.id} className="group animate-fade-in space-y-6" style={{ animationDelay: `${0.1 * idx}s` }}>

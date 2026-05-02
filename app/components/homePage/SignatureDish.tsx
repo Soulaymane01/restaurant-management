@@ -7,8 +7,8 @@ interface SignatureDishProps {
 }
 
 export default function SignatureDish({ featured, t, language }: SignatureDishProps) {
-  const itemName = featured.names[language as keyof typeof featured.names] || featured.name;
-  const itemDesc = featured.descriptions[language as keyof typeof featured.descriptions] || featured.description;
+  const itemName = featured.names[language as keyof typeof featured.names];
+  const itemDesc = featured.descriptions[language as keyof typeof featured.descriptions];
 
   return (
     <section

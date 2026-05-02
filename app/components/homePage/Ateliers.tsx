@@ -46,7 +46,7 @@ export default function Ateliers({ branches, t, language }: AteliersProps) {
               <img
                 src={`https://images.unsplash.com/photo-1517248135467-4c7ed9d42177?w=1200&q=80&idx=${idx}`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-all duration-[2000ms]"
-                alt={branch.names[language as keyof typeof branch.names] || branch.name}
+                alt={branch.names[language as keyof typeof branch.names]}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
             </div>
@@ -60,12 +60,12 @@ export default function Ateliers({ branches, t, language }: AteliersProps) {
                 <div className="w-12 h-px bg-primary/40 group-hover:w-32 transition-all duration-1000" />
               </div>
               <h4 className="text-6xl md:text-8xl font-black tracking-tighter leading-none group-hover:text-primary transition-colors serif italic text-white">
-                Atelier {branch.names[language as keyof typeof branch.names] || branch.name}.
+                Atelier {branch.names[language as keyof typeof branch.names]}.
               </h4>
               <div className="flex flex-wrap items-center gap-10 text-[12px] font-black uppercase tracking-[0.5em] text-white/40 group-hover:text-white transition-all">
-                <span className="flex items-center gap-3">📍 {branch.locations[language as keyof typeof branch.locations] || branch.location}</span>
+                <span className="flex items-center gap-3">📍 {branch.locations[language as keyof typeof branch.locations]}</span>
                 <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="flex items-center gap-3">🕒 {branch.hours[language as keyof typeof branch.hours] || branch.hours}</span>
+                <span className="flex items-center gap-3">🕒 {branch.hours[language as keyof typeof branch.hours]}</span>
               </div>
             </div>
           </Link>
