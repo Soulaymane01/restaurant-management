@@ -116,15 +116,15 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tighter">Orders</h1>
-          <p className="text-white/30 text-xs uppercase tracking-widest mt-1">{filtered.length} results</p>
+          <h1 className="text-4xl font-black tracking-tighter text-secondary">Orders</h1>
+          <p className="text-foreground/30 text-xs uppercase tracking-widest mt-1">{filtered.length} results</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={() => exportCSV(orders)} className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/8 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-white/10 transition-all">
+          <button onClick={() => exportCSV(orders)} className="flex items-center gap-2 px-4 py-2 bg-secondary/5 border border-secondary/10 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-secondary/10 transition-all text-secondary/60 hover:text-secondary">
             ⬇️ Export CSV
           </button>
           {selected.size > 0 && (
-            <button onClick={() => setShowBulk(v => !v)} className="flex items-center gap-2 px-4 py-2 bg-primary/20 border border-primary/30 rounded-xl text-[9px] font-black uppercase tracking-wider text-primary hover:bg-primary/30 transition-all">
+            <button onClick={() => setShowBulk(v => !v)} className="flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-xl text-[9px] font-black uppercase tracking-wider text-primary hover:bg-primary/20 transition-all">
               ☑ Bulk ({selected.size})
             </button>
           )}
@@ -133,11 +133,11 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
 
       {/* Bulk status panel */}
       {showBulk && selected.size > 0 && (
-        <div className="flex flex-wrap items-center gap-3 bg-primary/10 border border-primary/20 rounded-2xl p-4">
+        <div className="flex flex-wrap items-center gap-3 bg-primary/5 border border-primary/10 rounded-2xl p-4">
           <span className="text-[9px] font-black uppercase tracking-wider text-primary">Set {selected.size} orders to:</span>
           <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value as OrderStatus)}
-            className="bg-black border border-white/10 rounded-xl px-3 py-2 text-xs outline-none text-white cursor-pointer">
-            {(Object.keys(STATUS_CONFIG) as OrderStatus[]).map(s => <option key={s} value={s} className="bg-black">{STATUS_CONFIG[s].label}</option>)}
+            className="bg-card border border-border rounded-xl px-3 py-2 text-xs outline-none text-foreground cursor-pointer">
+            {(Object.keys(STATUS_CONFIG) as OrderStatus[]).map(s => <option key={s} value={s} className="bg-card">{STATUS_CONFIG[s].label}</option>)}
           </select>
           <button onClick={bulkUpdate} className="px-4 py-2 bg-primary rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-white hover:text-black transition-all">Apply</button>
           <button onClick={() => { setSelected(new Set()); setShowBulk(false); }} className="px-4 py-2 bg-white/5 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-white/10 transition-all">Cancel</button>
@@ -148,10 +148,10 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
       <div className="grid grid-cols-5 gap-2">
         {(Object.entries(STATUS_CONFIG) as [OrderStatus, typeof STATUS_CONFIG[OrderStatus]][]).map(([s, cfg]) => (
           <button key={s} onClick={() => setStatusFilter(statusFilter === s ? 'all' : s)}
-            className={`flex flex-col items-center py-3 px-2 rounded-xl border transition-all ${statusFilter === s ? 'border-primary bg-primary/10' : 'border-white/5 bg-white/[0.02] hover:border-white/15'}`}>
+            className={`flex flex-col items-center py-3 px-2 rounded-xl border transition-all ${statusFilter === s ? 'border-primary bg-primary/5' : 'border-border bg-foreground/[0.02] hover:border-secondary/20'}`}>
             <div className={`w-2 h-2 rounded-full ${cfg.dot} mb-1`} />
             <span className={`text-lg font-black ${cfg.color.split(' ')[1]}`}>{orders.filter(o => o.status === s).length}</span>
-            <span className="text-[7px] font-black uppercase tracking-widest text-white/25 mt-1">{cfg.label}</span>
+            <span className="text-[7px] font-black uppercase tracking-widest text-foreground/25 mt-1">{cfg.label}</span>
           </button>
         ))}
       </div>
@@ -159,11 +159,11 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
       {/* Filters */}
       <div className="flex flex-wrap gap-3">
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search customer, phone, ID…"
-          className="bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 flex-1 min-w-48 placeholder-white/20 text-white transition-colors" />
+          className="bg-secondary/5 border border-secondary/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 flex-1 min-w-48 placeholder-secondary/20 text-secondary transition-colors" />
         <select value={branchFilter} onChange={e => setBranchFilter(e.target.value)}
-          className="bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm outline-none text-white/70 cursor-pointer">
-          <option value="all" className="bg-black">All Branches</option>
-          {branches.map(b => <option key={b.id} value={b.id} className="bg-black">{b.names.en}</option>)}
+          className="bg-secondary/5 border border-secondary/10 rounded-xl px-4 py-2.5 text-sm outline-none text-secondary/70 cursor-pointer">
+          <option value="all" className="bg-card">All Branches</option>
+          {branches.map(b => <option key={b.id} value={b.id} className="bg-card">{b.names.en}</option>)}
         </select>
       </div>
 
@@ -181,19 +181,19 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
             const branch = branches.find(b => b.id === order.branch);
             const isSel = selected.has(order.id);
             return (
-              <div key={order.id} className={`bg-white/[0.02] border rounded-2xl overflow-hidden transition-all ${isSel ? 'border-primary/30 bg-primary/5' : 'border-white/5 hover:border-white/10'}`}>
+              <div key={order.id} className={`bg-card border rounded-2xl overflow-hidden transition-all ${isSel ? 'border-primary/30 bg-primary/5' : 'border-border hover:border-secondary/20'}`}>
                 {/* Order header row */}
                 <div className="flex flex-wrap items-center gap-3 p-4">
                   <input type="checkbox" checked={isSel} onChange={() => toggleSelect(order.id)} className="w-4 h-4 accent-primary rounded shrink-0" />
                   <div className={`w-2 h-2 rounded-full shrink-0 ${cfg.dot}`} />
                   <span className="text-primary font-black text-sm shrink-0">#{String(order.id).slice(-5)}</span>
-                  <span className="font-black truncate">{order.customer}</span>
-                  <span className="text-white/30 text-xs hidden sm:block">{order.phone}</span>
+                  <span className="font-black truncate text-secondary">{order.customer}</span>
+                  <span className="text-foreground/30 text-xs hidden sm:block">{order.phone}</span>
                   <div className="flex items-center gap-2 ml-auto shrink-0">
-                    <span className="text-white/20 text-xs hidden md:block">{branch?.names.en}</span>
+                    <span className="text-foreground/20 text-xs hidden md:block">{branch?.names.en}</span>
                     <span className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase ${cfg.color}`}>{cfg.label}</span>
-                    <span className="font-black">{order.total}<span className="text-xs text-white/30 ml-1">DH</span></span>
-                    <button onClick={() => setExpanded(isExp ? null : order.id)} className="text-white/20 hover:text-white transition-colors ml-1">
+                    <span className="font-black text-secondary">{order.total}<span className="text-xs text-secondary/30 ml-1">DH</span></span>
+                    <button onClick={() => setExpanded(isExp ? null : order.id)} className="text-foreground/20 hover:text-secondary transition-colors ml-1">
                       {isExp ? '▲' : '▼'}
                     </button>
                   </div>
@@ -210,20 +210,20 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
                         { label: 'Date', value: new Date(order.date).toLocaleString() },
                       ].map(f => (
                         <div key={f.label}>
-                          <p className="text-[8px] uppercase tracking-widest text-white/30 mb-1">{f.label}</p>
-                          <p className="font-medium text-sm leading-snug">{f.value}</p>
+                          <p className="text-[8px] uppercase tracking-widest text-foreground/30 mb-1">{f.label}</p>
+                          <p className="font-medium text-sm leading-snug text-secondary">{f.value}</p>
                         </div>
                       ))}
                     </div>
 
                     {/* Items */}
                     <div>
-                      <p className="text-[8px] uppercase tracking-widest text-white/30 mb-2">Items</p>
+                      <p className="text-[8px] uppercase tracking-widest text-foreground/30 mb-2">Items</p>
                       <div className="flex flex-wrap gap-2">
                         {order.items.map((item, i) => (
-                          <span key={i} className="bg-white/5 border border-white/8 px-3 py-1.5 rounded-xl text-xs font-black">
+                          <span key={i} className="bg-secondary/5 border border-secondary/10 px-3 py-1.5 rounded-xl text-xs font-black text-secondary">
                             {item.name} <span className="text-primary">×{item.quantity}</span>
-                            <span className="text-white/30 ml-1">({item.price * item.quantity} DH)</span>
+                            <span className="text-secondary/30 ml-1">({item.price * item.quantity} DH)</span>
                           </span>
                         ))}
                       </div>

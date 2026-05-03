@@ -97,8 +97,8 @@ export default function SettingsTab({ onLogout, onSettingsMessage, settingsMsg }
   return (
     <div className="space-y-8 animate-fade-in max-w-2xl">
       <div>
-        <h1 className="text-4xl font-black tracking-tighter">Settings</h1>
-        <p className="text-white/30 text-xs uppercase tracking-widest mt-1">System Configuration</p>
+        <h1 className="text-4xl font-black tracking-tighter text-secondary">Settings</h1>
+        <p className="text-foreground/30 text-xs uppercase tracking-widest mt-1">System Configuration</p>
       </div>
 
       {settingsMsg && (
@@ -108,8 +108,8 @@ export default function SettingsTab({ onLogout, onSettingsMessage, settingsMsg }
       )}
 
       {/* Restaurant Info */}
-      <section className="bg-white/[0.03] border border-white/5 rounded-2xl p-6 space-y-4">
-        <h2 className="font-black uppercase tracking-widest text-xs text-white/40">Restaurant Information</h2>
+      <section className="bg-card border border-border rounded-2xl p-6 space-y-4 shadow-sm">
+        <h2 className="font-black uppercase tracking-widest text-xs text-foreground/40">Restaurant Information</h2>
         <div className="space-y-3">
           {[
             { label: 'Restaurant Name', value: restaurantName, setter: setRestaurantName },
@@ -117,9 +117,9 @@ export default function SettingsTab({ onLogout, onSettingsMessage, settingsMsg }
             { label: 'City', value: restaurantCity, setter: setRestaurantCity },
           ].map(f => (
             <div key={f.label}>
-              <label className="text-[8px] font-black uppercase tracking-widest text-white/30 mb-1 block">{f.label}</label>
+              <label className="text-[8px] font-black uppercase tracking-widest text-foreground/30 mb-1 block">{f.label}</label>
               <input value={f.value} onChange={e => f.setter(e.target.value)}
-                className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 text-white transition-colors" />
+                className="w-full bg-secondary/5 border border-secondary/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 text-secondary transition-colors" />
             </div>
           ))}
         </div>
@@ -129,17 +129,17 @@ export default function SettingsTab({ onLogout, onSettingsMessage, settingsMsg }
       </section>
 
       {/* Branch Status */}
-      <section className="bg-white/[0.03] border border-white/5 rounded-2xl p-6 space-y-3">
-        <h2 className="font-black uppercase tracking-widest text-xs text-white/40">Branch Availability</h2>
+      <section className="bg-card border border-border rounded-2xl p-6 space-y-3 shadow-sm">
+        <h2 className="font-black uppercase tracking-widest text-xs text-foreground/40">Branch Availability</h2>
         {branches.map(b => (
-          <div key={b.id} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
+          <div key={b.id} className="flex items-center justify-between py-3 border-b border-border last:border-0">
             <div>
-              <p className="font-black">{b.names.en}</p>
-              <p className="text-xs text-white/30">{b.locations?.en}</p>
-              <p className="text-[9px] text-white/20 font-black">{b.phone}</p>
+              <p className="font-black text-secondary">{b.names.en}</p>
+              <p className="text-xs text-foreground/30">{b.locations?.en}</p>
+              <p className="text-[9px] text-foreground/20 font-black">{b.phone}</p>
             </div>
             <button onClick={() => toggleBranch(b.id)}
-              className={`relative w-12 h-6 rounded-full transition-all duration-300 ${branchStatus[b.id] !== false ? 'bg-primary' : 'bg-white/10'}`}>
+              className={`relative w-12 h-6 rounded-full transition-all duration-300 shadow-inner ${branchStatus[b.id] !== false ? 'bg-primary' : 'bg-secondary/10'}`}>
               <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300 ${branchStatus[b.id] !== false ? 'left-7' : 'left-1'}`} />
             </button>
           </div>
@@ -152,18 +152,18 @@ export default function SettingsTab({ onLogout, onSettingsMessage, settingsMsg }
         <div className="space-y-3">
           {Object.entries(hours).map(([day, h]) => (
             <div key={day} className="flex items-center gap-4">
-              <span className="w-24 text-sm font-black text-white/60 shrink-0">{day}</span>
+              <span className="w-24 text-sm font-black text-secondary/60 shrink-0">{day}</span>
               <label className="flex items-center gap-2 text-xs font-black cursor-pointer shrink-0">
-                <input type="checkbox" checked={h.closed} onChange={e => setHours(prev => ({ ...prev, [day]: { ...h, closed: e.target.checked } }))} className="accent-red-400" />
-                Closed
+                <input type="checkbox" checked={h.closed} onChange={e => setHours(prev => ({ ...prev, [day]: { ...h, closed: e.target.checked } }))} className="accent-red-500" />
+                <span className="text-secondary/40">Closed</span>
               </label>
               {!h.closed && (
                 <>
                   <input type="time" value={h.open} onChange={e => setHours(prev => ({ ...prev, [day]: { ...h, open: e.target.value } }))}
-                    className="bg-black/60 border border-white/10 rounded-xl px-3 py-1.5 text-sm outline-none focus:border-primary/50 text-white" />
-                  <span className="text-white/30">→</span>
+                    className="bg-secondary/5 border border-secondary/10 rounded-xl px-3 py-1.5 text-sm outline-none focus:border-primary/50 text-secondary" />
+                  <span className="text-secondary/30">→</span>
                   <input type="time" value={h.close} onChange={e => setHours(prev => ({ ...prev, [day]: { ...h, close: e.target.value } }))}
-                    className="bg-black/60 border border-white/10 rounded-xl px-3 py-1.5 text-sm outline-none focus:border-primary/50 text-white" />
+                    className="bg-secondary/5 border border-secondary/10 rounded-xl px-3 py-1.5 text-sm outline-none focus:border-primary/50 text-secondary" />
                 </>
               )}
             </div>
@@ -179,15 +179,15 @@ export default function SettingsTab({ onLogout, onSettingsMessage, settingsMsg }
         <h2 className="font-black uppercase tracking-widest text-xs text-white/40">Notification Settings</h2>
         <label className="flex items-center justify-between cursor-pointer">
           <div>
-            <p className="font-black text-sm">Auto-notify on new orders</p>
-            <p className="text-xs text-white/30 mt-0.5">Create a notification for every new pending order</p>
+            <p className="font-black text-sm text-secondary">Auto-notify on new orders</p>
+            <p className="text-xs text-foreground/30 mt-0.5">Create a notification for every new pending order</p>
           </div>
           <button onClick={() => { const n = !autoNotify; setAutoNotify(n); localStorage.setItem('admin_auto_notify', JSON.stringify(n)); }}
-            className={`relative w-12 h-6 rounded-full transition-all duration-300 ${autoNotify ? 'bg-primary' : 'bg-white/10'}`}>
+            className={`relative w-12 h-6 rounded-full transition-all duration-300 shadow-inner ${autoNotify ? 'bg-primary' : 'bg-secondary/10'}`}>
             <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300 ${autoNotify ? 'left-7' : 'left-1'}`} />
           </button>
         </label>
-        <button onClick={clearNotifications} className="px-6 py-2.5 bg-white/5 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-white/10 transition-all text-white/40">
+        <button onClick={clearNotifications} className="px-6 py-2.5 bg-secondary/5 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-secondary/10 transition-all text-secondary/40">
           Clear All Notifications
         </button>
       </section>
@@ -202,12 +202,12 @@ export default function SettingsTab({ onLogout, onSettingsMessage, settingsMsg }
             { label: 'Confirm New Password', val: confirmPass, set: setConfirmPass },
           ].map(f => (
             <div key={f.label}>
-              <label className="text-[8px] font-black uppercase tracking-widest text-white/30 mb-1 block">{f.label}</label>
+              <label className="text-[8px] font-black uppercase tracking-widest text-foreground/30 mb-1 block">{f.label}</label>
               <input type="password" value={f.val} onChange={e => f.set(e.target.value)}
-                className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 text-white transition-colors" />
+                className="w-full bg-secondary/5 border border-secondary/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 text-secondary transition-colors" />
             </div>
           ))}
-          <button type="submit" className="px-6 py-2.5 bg-primary rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-white hover:text-black transition-all">
+          <button type="submit" className="px-6 py-2.5 bg-primary rounded-xl text-[9px] font-black uppercase text-white hover:bg-secondary transition-all">
             Update Password
           </button>
         </form>

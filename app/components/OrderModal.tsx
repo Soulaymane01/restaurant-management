@@ -47,13 +47,13 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8 bg-black/95 backdrop-blur-3xl animate-fade-in">
-      <div className="bg-[#080808] border border-white/8 w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-[0_40px_120px_rgba(0,0,0,0.8)] relative">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8 bg-white/95 backdrop-blur-3xl animate-fade-in">
+      <div className="bg-card border border-border w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-[0_40px_120px_rgba(0,0,0,0.1)] relative">
         
         {/* Close Button */}
         <button 
           onClick={onClose} 
-          className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-primary hover:border-primary text-white/40 hover:text-white transition-all flex items-center justify-center text-xl font-light leading-none z-10"
+          className="absolute top-6 right-6 w-10 h-10 rounded-full bg-secondary/5 border border-secondary/10 hover:bg-primary hover:border-primary text-secondary/40 hover:text-white transition-all flex items-center justify-center text-xl font-light leading-none z-10"
         >
           ×
         </button>
@@ -61,10 +61,10 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
         <div className="p-10 md:p-14 space-y-10">
           {isSuccess ? (
             <div className="text-center py-16 space-y-8 animate-fade-in">
-              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center text-4xl mx-auto shadow-[0_20px_60px_rgba(255,90,0,0.4)]">✓</div>
+              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center text-4xl mx-auto shadow-[0_20px_60px_rgba(236,63,40,0.4)] text-white">✓</div>
               <div className="space-y-4">
-                <h2 className="text-5xl font-black tracking-tighter serif italic text-white">{t.order_labels.success_title}</h2>
-                <p className="text-[10px] uppercase font-black tracking-[0.4em] text-white/30">{t.order_labels.success_subtitle}</p>
+                <h2 className="text-5xl font-black tracking-tighter serif italic text-secondary">{t.order_labels.success_title}</h2>
+                <p className="text-[10px] uppercase font-black tracking-[0.4em] text-foreground/30">{t.order_labels.success_subtitle}</p>
               </div>
             </div>
           ) : (
@@ -72,15 +72,15 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
               {/* Header */}
               <div className="space-y-3">
                 <p className="text-[10px] uppercase font-black tracking-[0.7em] text-primary">{t.order_labels.concierge}</p>
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-white serif italic leading-tight">{t.order_labels.finalize}</h2>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-secondary serif italic leading-tight">{t.order_labels.finalize}</h2>
               </div>
 
               {/* Order Summary Strip */}
-              <div className="bg-white/3 border border-white/5 rounded-2xl p-5 space-y-3">
-                <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/30 mb-4">{t.order_labels.selection}</p>
+              <div className="bg-secondary/5 border border-secondary/10 rounded-2xl p-5 space-y-3">
+                <p className="text-[9px] font-black uppercase tracking-[0.5em] text-foreground/30 mb-4">{t.order_labels.selection}</p>
                 {cart.map(item => (
                   <div key={item.id} className="flex justify-between items-center text-sm">
-                    <span className="text-white/60 font-bold">{item.quantity}× {item.name}</span>
+                    <span className="text-secondary/60 font-bold">{item.quantity}× {item.name}</span>
                     <span className="text-primary font-black">{item.price * item.quantity} DH</span>
                   </div>
                 ))}
@@ -100,34 +100,34 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
                         type={field.type}
                         value={(formData as any)[field.key]}
                         onChange={e => setFormData({...formData, [field.key]: e.target.value})}
-                        className="w-full bg-white/5 border border-white/8 p-4 rounded-xl text-white placeholder-white/20 outline-none focus:border-primary transition-all font-semibold text-base"
+                        className="w-full bg-secondary/5 border border-secondary/10 p-4 rounded-xl text-secondary placeholder-secondary/20 outline-none focus:border-primary transition-all font-semibold text-base"
                         placeholder={field.placeholder}
                       />
                     </div>
                   ))}
                   <div className="space-y-2">
-                    <label className="text-[9px] font-black uppercase tracking-[0.5em] text-white/40 block">{t.address}</label>
+                    <label className="text-[9px] font-black uppercase tracking-[0.5em] text-foreground/40 block">{t.address}</label>
                     <textarea 
                       required
                       value={formData.address}
                       onChange={e => setFormData({...formData, address: e.target.value})}
-                      className="w-full bg-white/5 border border-white/8 p-4 rounded-xl text-white placeholder-white/20 outline-none focus:border-primary transition-all font-semibold h-24 no-scrollbar text-base resize-none"
+                      className="w-full bg-secondary/5 border border-secondary/10 p-4 rounded-xl text-secondary placeholder-secondary/20 outline-none focus:border-primary transition-all font-semibold h-24 no-scrollbar text-base resize-none"
                       placeholder={t.order_labels.address_placeholder}
                     />
                   </div>
                 </div>
 
                 {/* Total & Submit */}
-                <div className="pt-6 border-t border-white/5 space-y-6">
+                <div className="pt-6 border-t border-border space-y-6">
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40">{t.total}</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40">{t.total}</span>
                     <span className="text-4xl font-black text-primary tracking-tighter leading-none">{totalPrice} <span className="text-base text-primary/60">DH</span></span>
                   </div>
                   
                   <button 
                     type="submit" 
                     disabled={isProcessing}
-                    className="w-full py-5 bg-primary text-white text-[10px] font-black uppercase tracking-[0.5em] rounded-2xl relative overflow-hidden group shadow-[0_10px_40px_rgba(255,90,0,0.3)] hover:shadow-[0_15px_50px_rgba(255,90,0,0.4)] transition-all"
+                    className="w-full py-5 bg-primary text-white text-[10px] font-black uppercase tracking-[0.5em] rounded-2xl relative overflow-hidden group shadow-[0_10px_40px_rgba(236,63,40,0.2)] hover:shadow-[0_15px_50px_rgba(236,63,40,0.3)] transition-all"
                   >
                     {isProcessing ? (
                       <span className="flex items-center justify-center gap-3">
@@ -137,8 +137,8 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
                     ) : (
                       <>
                         <span className="relative z-10">{t.order_labels.confirm_wa}</span>
-                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                        <span className="absolute inset-0 flex items-center justify-center text-black font-black uppercase tracking-[0.4em] text-[10px] translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
+                        <div className="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                        <span className="absolute inset-0 flex items-center justify-center text-white font-black uppercase tracking-[0.4em] text-[10px] translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
                           {t.order_labels.send_to} →
                         </span>
                       </>

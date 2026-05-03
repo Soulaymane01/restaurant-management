@@ -33,7 +33,7 @@ export default function LandingPage() {
   const featured = menuItems[0];
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white selection:bg-primary selection:text-white overflow-x-hidden">
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white overflow-x-hidden">
       <Navbar scrolled={scrolled} variant="landing" />
 
       <Hero t={t} />

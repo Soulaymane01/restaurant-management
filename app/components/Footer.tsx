@@ -8,9 +8,9 @@ export default function Footer() {
   const { t, language } = useLanguage();
 
   return (
-    <footer id="footer" className="bg-[#020202] text-white py-32 md:py-48 relative overflow-hidden border-t border-white/[0.04]">
+    <footer id="footer" className="bg-background text-foreground py-32 md:py-48 relative overflow-hidden border-t border-border">
       {/* Decorative Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[30vw] bg-primary/[0.04] rounded-full blur-[150px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[30vw] bg-secondary/2 rounded-full blur-[150px]" />
       
       <div className="container relative z-10 px-8 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-24 lg:gap-40 mb-24">
@@ -20,7 +20,7 @@ export default function Footer() {
             <div className="flex items-center gap-6">
               <img src="/Logo Mahrousa.png" alt="Mahrousa Logo" className="h-20 w-auto" />
             </div>
-            <p className="text-lg font-light text-white/30 leading-relaxed italic serif">
+            <p className="text-lg font-light text-foreground/40 leading-relaxed italic serif">
               "{t.footer.quote}"
             </p>
             {/* Social row */}
@@ -31,8 +31,8 @@ export default function Footer() {
                 { id: 'WA', icon: <path d="M12.031 2C6.446 2 1.921 6.541 1.921 12.129c0 1.783.469 3.523 1.357 5.068L2 22l4.981-1.306c1.5 1.01 3.272 1.547 5.05 1.547h.001c5.586 0 10.111-4.54 10.111-10.128C22.143 6.541 17.618 2 12.031 2zm6.757 14.316c-.279.782-1.626 1.523-2.245 1.621-.579.091-1.135.127-1.135.127-2.31 0-4.662-1.282-6.26-2.88-1.597-1.598-2.88-3.95-2.88-6.26 0 0 .036-.554.127-1.135.097-.619.839-1.966 1.621-2.245.249-.089.522-.132.784-.132.33 0 .66.195.834.505l1.373 3.324c.092.219.049.468-.113.634l-.999.999c-.195.195-.236.467-.101.706.464.832 1.137 1.6 1.996 2.459.859.859 1.627 1.533 2.459 1.996.239.135.511.094.706-.101l.999-.999c.166-.162.415-.205.634-.113l3.324 1.373c.31.174.505.504.505.833 0 .262-.043.535-.132.784z" /> },
                 { id: 'TK', icon: <path d="M12.525.02c1.31 0 2.59.3 3.73.88l-.05 1.25c-.01 2.37 1.92 4.3 4.29 4.31v3.42c-1.19-.01-2.35-.42-3.29-1.18-.01 3.51-.01 7-.02 10.5-.02 3.86-3.15 6.99-7.01 6.99a6.995 6.995 0 0 1-7.01-7.01C3.15 15.3 6.3 12.15 10.15 12.14v3.42a3.575 3.575 0 0 0-3.58 3.58 3.575 3.575 0 0 0 3.58 3.58 3.585 3.585 0 0 0 3.59-3.59V.03l-1.22-.01z" /> }
               ].map(s => (
-                <a key={s.id} href="#" className="w-12 h-12 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-center group hover:border-primary hover:bg-primary/5 transition-all duration-500">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white/20 group-hover:fill-primary transition-colors">
+                <a key={s.id} href="#" className="w-12 h-12 rounded-2xl border border-secondary/10 bg-secondary/5 flex items-center justify-center group hover:border-primary hover:bg-primary/5 transition-all duration-500">
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-secondary/20 group-hover:fill-primary transition-colors">
                     {s.icon}
                   </svg>
                 </a>
@@ -51,7 +51,7 @@ export default function Footer() {
                   { label: t.nav.backstage, href: '/admin' },
                 ].map(l => (
                   <li key={l.label}>
-                    <a href={l.href} className="text-[11px] font-bold text-white/30 uppercase tracking-[0.3em] hover:text-primary transition-colors">
+                    <a href={l.href} className="text-[11px] font-bold text-foreground/40 uppercase tracking-[0.3em] hover:text-primary transition-colors">
                       {l.label}
                     </a>
                   </li>
@@ -64,7 +64,7 @@ export default function Footer() {
               <ul className="space-y-5">
                 {branches.map(branch => (
                   <li key={branch.id}>
-                    <Link href={`/${branch.id}/menu`} className="text-[11px] font-bold text-white/30 uppercase tracking-[0.3em] hover:text-primary transition-colors">
+                    <Link href={`/${branch.id}/menu`} className="text-[11px] font-bold text-foreground/40 uppercase tracking-[0.3em] hover:text-primary transition-colors">
                       {(branch as any).names[language as keyof typeof branch.names]}
                     </Link>
                   </li>
@@ -77,7 +77,7 @@ export default function Footer() {
               <ul className="space-y-5">
                 {['Instagram', 'WhatsApp', 'Mail'].map(s => (
                   <li key={s}>
-                    <a href="#" className="text-[11px] font-bold text-white/30 uppercase tracking-[0.3em] hover:text-primary transition-colors">
+                    <a href="#" className="text-[11px] font-bold text-foreground/40 uppercase tracking-[0.3em] hover:text-primary transition-colors">
                       {s}
                     </a>
                   </li>
@@ -88,19 +88,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-10 border-t border-white/[0.04]">
-          <div className="flex flex-col md:flex-row gap-8 items-center text-[9px] font-black uppercase tracking-[0.6em] text-white/20">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-10 border-t border-border">
+          <div className="flex flex-col md:flex-row gap-8 items-center text-[9px] font-black uppercase tracking-[0.6em] text-foreground/20">
             <p>© 2026 {t.footer.rights}</p>
-            <span className="hidden md:block w-1 h-1 bg-white/20 rounded-full" />
+            <span className="hidden md:block w-1 h-1 bg-foreground/20 rounded-full" />
             <p>{t.footer.location}</p>
           </div>
           
-          <div className="flex gap-8 text-[9px] font-black uppercase tracking-[0.5em] text-white/20">
+          <div className="flex gap-8 text-[9px] font-black uppercase tracking-[0.5em] text-foreground/20">
             <a href="#" className="hover:text-primary transition-colors">Privacy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms</a>
           </div>
 
-          <div className="w-16 h-16 border border-white/[0.06] rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 border border-secondary/10 rounded-full flex items-center justify-center">
             <span className="text-primary text-lg font-black serif italic">H.</span>
           </div>
         </div>

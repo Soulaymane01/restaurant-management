@@ -10,24 +10,24 @@
   --primary: #EC3F28;
   --primary-dark: #cc3520;
   --secondary: #3950A1;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --muted: #f8f9fa;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --border: #eeeeee;
+  --radius: 12px;
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] {
   --background: #0a0a0a;
   --foreground: #f4f4f4;
   --muted: #1e1e1e;
   --card: #141414;
   --card-foreground: #f4f4f4;
   --border: #2e2e2e;
-  --radius: 12px;
   --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-[data-theme='light'] {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --muted: #f4f4f4;
-  --card: #ffffff;
-  --card-foreground: #1a1a1a;
-  --border: #e2e2e2;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -35,11 +35,17 @@
 }
 
 ::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] ::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
 
 input, textarea, select {
-  color: white;
+  color: var(--foreground);
+  background: var(--card);
+  border: 1px solid var(--border);
 }
 
 body {
@@ -51,8 +57,10 @@ body {
 }
 
 h1, h2, h3, h4, .brand-font {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 a {
@@ -142,7 +150,13 @@ button {
 
 .rtl {
   direction: rtl;
-  font-family: 'Inter', sans-serif; /* Fallback, maybe add Arabic font later */
+  font-family: 'Alexandria', sans-serif;
+}
+
+.rtl h1, .rtl h2, .rtl h3, .rtl h4, .rtl .brand-font {
+  font-family: 'Alexandria', sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .no-scrollbar::-webkit-scrollbar {

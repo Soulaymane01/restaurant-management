@@ -13,9 +13,9 @@ function getSegment(orderCount: number, totalSpent: number): Client['segment'] {
 }
 
 const SEGMENT_CONFIG = {
-  vip:     { label: '⭐ VIP',     color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/20' },
-  regular: { label: '✅ Regular', color: 'bg-blue-500/20 text-blue-400 border-blue-500/20' },
-  new:     { label: '🆕 New',     color: 'bg-green-500/20 text-green-400 border-green-500/20' },
+  vip:     { label: '⭐ VIP',     color: 'bg-yellow-100 text-yellow-700 border-yellow-200' },
+  regular: { label: '✅ Regular', color: 'bg-blue-100 text-blue-700 border-blue-200' },
+  new:     { label: '🆕 New',     color: 'bg-green-100 text-green-700 border-green-200' },
 };
 
 function exportClientsCSV(clients: Client[]) {
@@ -80,11 +80,11 @@ export default function CRMTab({ orders }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tighter">Clients</h1>
-          <p className="text-white/30 text-xs uppercase tracking-widest mt-1">{stats.total} customers · {stats.vip} VIP</p>
+          <h1 className="text-4xl font-black tracking-tighter text-secondary">Clients</h1>
+          <p className="text-foreground/30 text-xs uppercase tracking-widest mt-1">{stats.total} customers · {stats.vip} VIP</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={() => exportClientsCSV(clients)} className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/8 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-white/10 transition-all">
+          <button onClick={() => exportClientsCSV(clients)} className="flex items-center gap-2 px-4 py-2 bg-secondary/5 border border-secondary/10 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-secondary/10 transition-all text-secondary/60">
             ⬇️ Export CSV
           </button>
         </div>
@@ -93,12 +93,12 @@ export default function CRMTab({ orders }: Props) {
       {/* Summary KPIs */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: 'Total Clients', value: stats.total, accent: 'text-white' },
-          { label: 'VIP Clients', value: stats.vip, accent: 'text-yellow-400' },
+          { label: 'Total Clients', value: stats.total, accent: 'text-secondary' },
+          { label: 'VIP Clients', value: stats.vip, accent: 'text-yellow-600' },
           { label: 'Avg Lifetime Value', value: `${stats.avgSpend} DH`, accent: 'text-primary' },
         ].map(s => (
-          <div key={s.label} className="bg-white/[0.03] border border-white/5 rounded-2xl p-4">
-            <p className="text-[8px] font-black uppercase tracking-widest text-white/30 mb-1">{s.label}</p>
+          <div key={s.label} className="bg-card border border-border rounded-2xl p-4 shadow-sm">
+            <p className="text-[8px] font-black uppercase tracking-widest text-foreground/30 mb-1">{s.label}</p>
             <p className={`text-2xl font-black tracking-tighter ${s.accent}`}>{s.value}</p>
           </div>
         ))}
@@ -107,19 +107,19 @@ export default function CRMTab({ orders }: Props) {
       {/* Filters */}
       <div className="flex flex-wrap gap-3">
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name or phone…"
-          className="bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 flex-1 min-w-48 placeholder-white/20 text-white transition-colors" />
-        <div className="flex bg-white/5 border border-white/8 p-1 rounded-2xl">
+          className="bg-secondary/5 border border-secondary/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 flex-1 min-w-48 placeholder-secondary/20 text-secondary transition-colors" />
+        <div className="flex bg-secondary/5 border border-secondary/10 p-1 rounded-2xl">
           {(['all', 'vip', 'regular', 'new'] as const).map(s => (
             <button key={s} onClick={() => setSegmentFilter(s)}
-              className={`px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider transition-all ${segmentFilter === s ? 'bg-primary text-white' : 'text-white/30 hover:text-white'}`}>
+              className={`px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider transition-all ${segmentFilter === s ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-foreground/30 hover:text-secondary'}`}>
               {s}
             </button>
           ))}
         </div>
-        <div className="flex bg-white/5 border border-white/8 p-1 rounded-2xl">
+        <div className="flex bg-secondary/5 border border-secondary/10 p-1 rounded-2xl">
           {([['spent', 'Spend'], ['orders', 'Orders'], ['recent', 'Recent']] as const).map(([k, l]) => (
             <button key={k} onClick={() => setSort(k)}
-              className={`px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider transition-all ${sort === k ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white'}`}>
+              className={`px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider transition-all ${sort === k ? 'bg-secondary/10 text-secondary' : 'text-foreground/30 hover:text-secondary'}`}>
               {l}
             </button>
           ))}
@@ -141,7 +141,7 @@ export default function CRMTab({ orders }: Props) {
             const avgOrder = c.orderCount ? Math.round(c.totalSpent / c.orderCount) : 0;
 
             return (
-              <div key={c.phone} className="bg-white/[0.03] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all">
+              <div key={c.phone} className="bg-card border border-border rounded-2xl overflow-hidden hover:border-secondary/20 transition-all shadow-sm">
                 <div className="p-5 space-y-4">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-3">
@@ -150,7 +150,7 @@ export default function CRMTab({ orders }: Props) {
                       </div>
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-black leading-tight">{c.name}</h3>
+                          <h3 className="font-black leading-tight text-secondary">{c.name}</h3>
                           {i < 3 && <span className="text-[8px]">{['🥇','🥈','🥉'][i]}</span>}
                         </div>
                         <p className="text-primary text-xs font-black">{c.phone}</p>
@@ -159,7 +159,7 @@ export default function CRMTab({ orders }: Props) {
                     <span className={`text-[8px] font-black px-2 py-1 rounded-full border shrink-0 ${segCfg.color}`}>{segCfg.label}</span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/5">
+                  <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border">
                     {[
                       { label: 'Orders', value: c.orderCount },
                       { label: 'Lifetime', value: `${c.totalSpent} DH`, accent: 'text-primary' },
@@ -167,8 +167,8 @@ export default function CRMTab({ orders }: Props) {
                       { label: 'Fav Branch', value: c.favBranch },
                     ].map(f => (
                       <div key={f.label}>
-                        <p className="text-[7px] uppercase tracking-widest text-white/25 mb-0.5">{f.label}</p>
-                        <p className={`font-black text-sm ${(f as any).accent || ''}`}>{f.value}</p>
+                        <p className="text-[7px] uppercase tracking-widest text-foreground/25 mb-0.5">{f.label}</p>
+                        <p className={`font-black text-sm text-secondary ${(f as any).accent || ''}`}>{f.value}</p>
                       </div>
                     ))}
                   </div>

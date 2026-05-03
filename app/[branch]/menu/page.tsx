@@ -71,7 +71,7 @@ export default function MenuPage() {
   const branchLocation = branch.locations[language as keyof typeof branch.locations] || '';
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white selection:bg-primary">
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary">
       <Navbar scrolled={scrolled} variant="menu" onCartOpen={() => setIsCartSidebarOpen(true)} />
 
       {/* Page Canvas - Enhanced Spacing */}
@@ -81,7 +81,7 @@ export default function MenuPage() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-20 animate-fade-in">
           <div className="max-w-3xl space-y-8">
             <p className="text-primary font-black uppercase tracking-[0.5em] text-[10px] mb-2">{branchName}</p>
-            <h2 className="text-8xl md:text-[11rem] font-black tracking-tighter leading-none mb-10">
+            <h2 className="text-8xl md:text-[11rem] font-black tracking-tighter leading-none mb-10 text-secondary">
               LE <span className="text-primary italic serif">MENU.</span>
             </h2>
             <div className="relative inline-block w-full">
@@ -90,16 +90,16 @@ export default function MenuPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t.menu_labels.search}
-                className="bg-transparent border-b border-white/10 py-6 pr-16 w-full md:w-[450px] outline-none focus:border-primary transition-all serif italic text-2xl md:text-3xl tracking-tight"
+                className="bg-transparent border-b border-secondary/10 py-6 pr-16 w-full md:w-[450px] outline-none focus:border-primary transition-all serif italic text-2xl md:text-3xl tracking-tight text-secondary"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-40 text-2xl">🔍</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 text-2xl">🔍</span>
             </div>
           </div>
           
           </div>
           
         {/* Dynamic Navigation & Insights */}
-        <div className={`sticky top-28 z-[100] -mx-8 md:-mx-12 px-8 md:px-12 py-4 transition-all duration-500 ${scrolled ? 'bg-black/95 backdrop-blur-3xl border-b border-white/5 shadow-2xl' : ''}`}>
+        <div className={`sticky top-28 z-[100] -mx-8 md:-mx-12 px-8 md:px-12 py-4 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-3xl border-b border-border shadow-2xl' : ''}`}>
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             {/* Minimalist Filters */}
             <nav className="flex gap-3 overflow-x-auto no-scrollbar w-full lg:w-auto scroll-smooth py-1">
@@ -115,13 +115,13 @@ export default function MenuPage() {
                     className={`group flex items-center gap-4 px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em] whitespace-nowrap transition-all border ${
                       isActive 
                         ? 'bg-primary border-primary text-white shadow-lg' 
-                        : 'bg-white/5 border-white/5 text-white/30 hover:border-white/20 hover:text-white'
+                        : 'bg-secondary/5 border-secondary/10 text-secondary/40 hover:border-secondary/20 hover:text-secondary'
                     }`}
                   >
                     <span className="text-lg">{cat.icon}</span>
                     <span>{translatedName}</span>
                     {count > 0 && (
-                      <span className={`px-2 py-0.5 rounded-lg text-[8px] font-black ${isActive ? 'bg-white/10 text-white' : 'bg-white/5 text-white/20'}`}>
+                      <span className={`px-2 py-0.5 rounded-lg text-[8px] font-black ${isActive ? 'bg-white/10 text-white' : 'bg-secondary/10 text-secondary/40'}`}>
                         {count}
                       </span>
                     )}
@@ -132,16 +132,16 @@ export default function MenuPage() {
 
             {/* Advanced Filters & Sorting */}
             <div className="flex items-center gap-6 w-full lg:w-auto justify-end">
-              <div className="flex items-center gap-4 bg-white/5 border border-white/8 p-2 rounded-full px-6 backdrop-blur-3xl group hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-4 bg-secondary/5 border border-secondary/10 p-2 rounded-full px-6 backdrop-blur-3xl group hover:border-primary/40 transition-colors">
                 <span className="text-[8px] font-black uppercase tracking-[0.3em] opacity-30 group-hover:opacity-100 transition-opacity whitespace-nowrap">{t.menu_labels.sort_by}</span>
                 <select 
                   value={sortType}
                   onChange={(e) => setSortType(e.target.value)}
-                  className="bg-transparent border-none outline-none font-black text-[9px] uppercase tracking-[0.1em] text-primary cursor-pointer hover:text-white transition-colors"
+                  className="bg-transparent border-none outline-none font-black text-[9px] uppercase tracking-[0.1em] text-primary cursor-pointer hover:text-secondary transition-colors"
                 >
-                  <option value="curated" className="bg-[#050505]">{t.menu_labels.curated}</option>
-                  <option value="price-low" className="bg-[#050505]">{t.menu_labels.price_low}</option>
-                  <option value="price-high" className="bg-[#050505]">{t.menu_labels.price_high}</option>
+                  <option value="curated" className="bg-white">{t.menu_labels.curated}</option>
+                  <option value="price-low" className="bg-white">{t.menu_labels.price_low}</option>
+                  <option value="price-high" className="bg-white">{t.menu_labels.price_high}</option>
                 </select>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function MenuPage() {
                 {/* Image Card — clean overlay, no button overlap */}
                 <div 
                   onClick={() => setSelectedItem(item)}
-                  className="relative aspect-[3/4] rounded-[4rem] overflow-hidden border border-white/5 bg-white/5 shadow-2xl transition-all duration-1000 group-hover:scale-[1.02] group-hover:border-primary/30 cursor-pointer"
+                  className="relative aspect-[3/4] rounded-[4rem] overflow-hidden border border-border bg-card shadow-[0_20px_40px_rgba(0,0,0,0.05)] transition-all duration-1000 group-hover:scale-[1.02] group-hover:border-primary/30 cursor-pointer"
                 >
                   <img src={item.image} alt={itemName} className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-105 group-hover:scale-100" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
@@ -180,16 +180,16 @@ export default function MenuPage() {
                   {/* Price block */}
                   <div className="shrink-0 text-left">
                     <span className="text-xl font-black text-primary tracking-tighter leading-none block">{item.price}</span>
-                    <span className="text-[8px] font-black uppercase tracking-widest text-white/20">DH</span>
+                    <span className="text-[8px] font-black uppercase tracking-widest text-secondary/40">DH</span>
                   </div>
 
                   {/* Explore button — fills remaining space */}
                   <button 
                     onClick={() => setSelectedItem(item)}
-                    className="group relative flex-1 py-3 overflow-hidden rounded-full bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-[0.3em] text-white/30 hover:text-white transition-all text-center"
+                    className="group relative flex-1 py-3 overflow-hidden rounded-full bg-secondary/5 border border-secondary/10 text-[8px] font-black uppercase tracking-[0.3em] text-secondary/40 hover:text-secondary transition-all text-center"
                   >
                     <span className="relative z-10">{t.menu_labels.narrative} →</span>
-                    <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
+                    <div className="absolute inset-0 bg-secondary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
                   </button>
 
                   {/* Quick Add — clean hover, no overlay bleed */}
@@ -202,7 +202,7 @@ export default function MenuPage() {
                 </div>
 
                 {/* Description — subtle, beneath the action row */}
-                <p className="px-2 text-xs font-light text-white/30 leading-relaxed italic serif line-clamp-2">"{itemDesc}"</p>
+                <p className="px-2 text-xs font-light text-foreground/40 leading-relaxed italic serif line-clamp-2">"{itemDesc}"</p>
               </div>
             )})
           }

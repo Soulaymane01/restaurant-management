@@ -103,12 +103,12 @@ export default function MenuTab({ menuItems, setMenuItems }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tighter">Menu</h1>
-          <p className="text-white/30 text-xs uppercase tracking-widest mt-1">{menuItems.length} items · {menuItems.filter(i => !i.available).length} unavailable</p>
+          <h1 className="text-4xl font-black tracking-tighter text-secondary">Menu</h1>
+          <p className="text-foreground/30 text-xs uppercase tracking-widest mt-1">{menuItems.length} items · {menuItems.filter(i => !i.available).length} unavailable</p>
         </div>
         <div className="flex gap-3">
           <button onClick={() => setShowBulkPrice(v => !v)}
-            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/8 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-white/10 transition-all">
+            className="flex items-center gap-2 px-4 py-2 bg-secondary/5 border border-secondary/10 rounded-xl text-[9px] font-black uppercase tracking-wider hover:bg-secondary/10 transition-all text-secondary/60">
             📈 Bulk Price
           </button>
           <button onClick={() => setNewItem({ ...BLANK_ITEM })}
@@ -120,12 +120,12 @@ export default function MenuTab({ menuItems, setMenuItems }: Props) {
 
       {/* Bulk Price Panel */}
       {showBulkPrice && (
-        <div className="flex flex-wrap items-center gap-4 bg-white/[0.03] border border-white/10 rounded-2xl p-5">
-          <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Adjust all prices by %</p>
+        <div className="flex flex-wrap items-center gap-4 bg-card border border-border rounded-2xl p-5 shadow-sm">
+          <p className="text-[9px] font-black uppercase tracking-widest text-foreground/40">Adjust all prices by %</p>
           <input type="number" value={bulkPct} onChange={e => setBulkPct(e.target.value)} placeholder="e.g. +10 or -5"
-            className="w-32 bg-black/60 border border-white/10 rounded-xl px-3 py-2 text-sm outline-none focus:border-primary/50 text-white" />
-          <button onClick={applyBulkPrice} className="px-5 py-2 bg-primary rounded-xl text-[9px] font-black uppercase hover:bg-white hover:text-black transition-all">Apply to All</button>
-          <button onClick={() => setShowBulkPrice(false)} className="px-5 py-2 bg-white/5 rounded-xl text-[9px] font-black uppercase hover:bg-white/10 transition-all">Cancel</button>
+            className="w-32 bg-secondary/5 border border-secondary/10 rounded-xl px-3 py-2 text-sm outline-none focus:border-primary/50 text-secondary" />
+          <button onClick={applyBulkPrice} className="px-5 py-2 bg-primary rounded-xl text-[9px] font-black uppercase text-white hover:bg-secondary transition-all">Apply to All</button>
+          <button onClick={() => setShowBulkPrice(false)} className="px-5 py-2 bg-secondary/5 rounded-xl text-[9px] font-black uppercase hover:bg-secondary/10 transition-all">Cancel</button>
           <p className="text-[8px] text-white/20 italic">Positive = increase, negative = decrease. Applied to current filtered view.</p>
         </div>
       )}
@@ -133,20 +133,20 @@ export default function MenuTab({ menuItems, setMenuItems }: Props) {
       {/* Category Pills with counts */}
       <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
         <button onClick={() => setCatFilter('all')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-wider whitespace-nowrap border transition-all ${catFilter === 'all' ? 'bg-primary border-primary text-white' : 'bg-white/5 border-white/5 text-white/30 hover:text-white'}`}>
-          All <span className="bg-white/10 px-1.5 py-0.5 rounded-full">{menuItems.length}</span>
+          className={`flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-wider whitespace-nowrap border transition-all ${catFilter === 'all' ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' : 'bg-secondary/5 border-secondary/5 text-foreground/30 hover:text-secondary'}`}>
+          All <span className="bg-foreground/5 px-1.5 py-0.5 rounded-full">{menuItems.length}</span>
         </button>
         {cats.map(c => (
           <button key={c.id} onClick={() => setCatFilter(c.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-wider whitespace-nowrap border transition-all ${catFilter === c.id ? 'bg-primary border-primary text-white' : 'bg-white/5 border-white/5 text-white/30 hover:text-white'}`}>
-            {c.icon} {c.name} <span className="bg-white/10 px-1.5 py-0.5 rounded-full">{itemsByCat[c.id] || 0}</span>
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-wider whitespace-nowrap border transition-all ${catFilter === c.id ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' : 'bg-secondary/5 border-secondary/5 text-foreground/30 hover:text-secondary'}`}>
+            {c.icon} {c.name} <span className="bg-foreground/5 px-1.5 py-0.5 rounded-full">{itemsByCat[c.id] || 0}</span>
           </button>
         ))}
       </div>
 
       {/* Search */}
       <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search items by name…"
-        className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 placeholder-white/20 text-white transition-colors" />
+        className="w-full bg-secondary/5 border border-secondary/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-primary/50 placeholder-secondary/20 text-secondary transition-colors" />
 
       {/* New Item Form */}
       {newItem && (
@@ -239,7 +239,7 @@ export default function MenuTab({ menuItems, setMenuItems }: Props) {
           }
 
           return (
-            <div key={item.id} className={`bg-white/[0.02] border rounded-2xl overflow-hidden transition-all hover:border-white/10 ${isUnavailable ? 'opacity-50 border-red-500/10' : 'border-white/5'}`}>
+            <div key={item.id} className={`bg-card border rounded-2xl overflow-hidden transition-all hover:border-secondary/20 shadow-sm ${isUnavailable ? 'opacity-50 border-red-500/10' : 'border-border'}`}>
               <div className="flex items-center gap-4 p-4">
                 <div className="relative shrink-0 cursor-pointer" onClick={() => setPreviewImg(item.image)}>
                   <img src={item.image} alt="" className="w-16 h-16 rounded-xl object-cover bg-white/5"
@@ -250,16 +250,16 @@ export default function MenuTab({ menuItems, setMenuItems }: Props) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                    <h4 className="font-black truncate">{item.names?.en}</h4>
+                    <h4 className="font-black truncate text-secondary">{item.names?.en}</h4>
                     {item.featured && <span className="text-[7px] bg-primary/20 text-primary px-1.5 py-0.5 rounded-full font-black uppercase">🔥 Featured</span>}
                     {isUnavailable && <span className="text-[7px] bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded-full font-black uppercase">❌ Out of Stock</span>}
                   </div>
-                  <p className="text-[9px] text-white/30 uppercase tracking-wider">{cat?.icon} {cat?.name}</p>
-                  <p className="text-primary font-black mt-1 text-sm">{item.price} <span className="text-white/20 text-xs">DH</span></p>
+                  <p className="text-[9px] text-foreground/30 uppercase tracking-wider">{cat?.icon} {cat?.name}</p>
+                  <p className="text-primary font-black mt-1 text-sm">{item.price} <span className="text-foreground/20 text-xs">DH</span></p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button onClick={() => toggleAvailable(item.id)} title="Toggle availability"
-                    className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm transition-all ${isUnavailable ? 'bg-red-500/10 text-red-400' : 'bg-white/5 text-white/30 hover:text-white'}`}>
+                    className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm transition-all ${isUnavailable ? 'bg-red-500/10 text-red-500 font-bold' : 'bg-secondary/5 text-foreground/30 hover:text-secondary'}`}>
                     {isUnavailable ? '❌' : '✅'}
                   </button>
                   <button onClick={() => toggleFeatured(item.id)} title="Toggle featured"

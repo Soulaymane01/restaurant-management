@@ -9,17 +9,17 @@ export default function Hero({ t }: HeroProps) {
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Layered Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#050505] z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/80 to-background z-10" />
         <img
           src="https://images.unsplash.com/photo-1550966841-3ee3ad55ffa7?w=1920&q=90"
           alt="Elite Background"
-          className="w-full h-full object-cover scale-110 animate-pulse-slow opacity-60"
+          className="w-full h-full object-cover scale-110 animate-pulse-slow opacity-30"
         />
       </div>
 
       {/* Watermark Typography */}
       <div className="absolute inset-0 flex items-center justify-center z-5 pointer-events-none overflow-hidden">
-        <h1 className="text-[25vw] font-black text-stroke uppercase tracking-[0.1em] opacity-5 leading-none select-none">
+        <h1 className="text-[25vw] font-black text-stroke uppercase tracking-[0.1em] opacity-5 leading-none select-none text-secondary">
           SAVOUR
         </h1>
       </div>
@@ -37,11 +37,11 @@ export default function Hero({ t }: HeroProps) {
 
           {/* Headline */}
           <div className="space-y-8">
-            <h2 className="text-6xl md:text-9xl lg:text-[11rem] font-black leading-[0.85] tracking-tighter uppercase text-white">
+            <h2 className="text-6xl md:text-9xl lg:text-[11rem] font-black leading-[0.85] tracking-tighter uppercase text-secondary">
               <span className="block mb-2">{t.hero.beyond}</span>
               <span className="block text-primary">{t.hero.dining}</span>
             </h2>
-            <p className="max-w-3xl mx-auto text-xl md:text-3xl font-light text-white/50 leading-relaxed tracking-wide italic serif px-6">
+            <p className="max-w-3xl mx-auto text-xl md:text-3xl font-light text-foreground/50 leading-relaxed tracking-wide italic serif px-6">
               "{t.hero.description}"
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function Hero({ t }: HeroProps) {
             </a>
             <a
               href="#signature"
-              className="group px-14 py-7 rounded-full border border-white/10 bg-white/5 text-[11px] font-black uppercase tracking-[0.5em] text-white/60 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all hover:scale-105 active:scale-95 shadow-xl"
+              className="group px-14 py-7 rounded-full border border-secondary/10 bg-secondary/5 text-[11px] font-black uppercase tracking-[0.5em] text-secondary/60 hover:text-secondary hover:border-secondary/30 hover:bg-secondary/10 transition-all hover:scale-105 active:scale-95 shadow-xl"
             >
               {t.hero.signature_piece}
             </a>
@@ -69,9 +69,9 @@ export default function Hero({ t }: HeroProps) {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-white/30 animate-bounce">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-secondary/30 animate-bounce">
         <span className="text-[10px] uppercase font-black tracking-[0.6em]">{t.hero.explore}</span>
-        <div className="w-[1px] h-20 bg-gradient-to-b from-white/40 to-transparent" />
+        <div className="w-[1px] h-20 bg-gradient-to-b from-secondary/40 to-transparent" />
       </div>
     </section>
   );

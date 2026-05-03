@@ -27,7 +27,7 @@ export default function AdminSidebar({ activeTab, setActiveTab, orders, notifica
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 border-r border-white/5 p-6 gap-2 sticky top-0 h-screen overflow-y-auto">
+      <aside className="hidden md:flex flex-col w-64 border-r border-border p-6 gap-2 sticky top-0 h-screen overflow-y-auto bg-card">
         <div className="mb-8 shrink-0">
           <img src="/Logo Mahrousa.png" alt="Mahrousa" className="h-14 w-auto mb-3" />
           <p className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Operations Control</p>
@@ -43,7 +43,7 @@ export default function AdminSidebar({ activeTab, setActiveTab, orders, notifica
                 className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-wider transition-all text-left ${
                   activeTab === tab.id
                     ? 'bg-primary text-white shadow-lg shadow-primary/20'
-                    : 'text-white/30 hover:text-white hover:bg-white/5'
+                    : 'text-foreground/30 hover:text-secondary hover:bg-secondary/5'
                 }`}
               >
                 <span className="text-base">{tab.icon}</span>
@@ -59,17 +59,17 @@ export default function AdminSidebar({ activeTab, setActiveTab, orders, notifica
         </nav>
 
         {/* Status summary at bottom */}
-        <div className="shrink-0 border-t border-white/5 pt-4 mt-2 space-y-2">
-          <p className="text-[8px] uppercase tracking-widest text-white/20 mb-3">Live Status</p>
+        <div className="shrink-0 border-t border-border/50 pt-4 mt-2 space-y-2">
+          <p className="text-[8px] uppercase tracking-widest text-foreground/20 mb-3">Live Status</p>
           {(Object.entries(STATUS_CONFIG) as [keyof typeof STATUS_CONFIG, typeof STATUS_CONFIG[keyof typeof STATUS_CONFIG]][]).map(([s, cfg]) => {
             const count = orders.filter(o => o.status === s).length;
             return count > 0 ? (
               <div key={s} className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
-                  <span className="text-[9px] font-black text-white/30 uppercase">{cfg.label}</span>
+                  <span className="text-[9px] font-black text-foreground/30 uppercase">{cfg.label}</span>
                 </div>
-                <span className="text-[10px] font-black text-white/50">{count}</span>
+                <span className="text-[10px] font-black text-foreground/50">{count}</span>
               </div>
             ) : null;
           })}
@@ -77,14 +77,14 @@ export default function AdminSidebar({ activeTab, setActiveTab, orders, notifica
 
         <button
           onClick={onLogout}
-          className="flex items-center gap-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-wider text-white/20 hover:text-red-400 hover:bg-red-500/10 transition-all mt-2 shrink-0"
+          className="flex items-center gap-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-wider text-foreground/20 hover:text-red-500 hover:bg-red-500/10 transition-all mt-2 shrink-0"
         >
           <span>🚪</span> Logout
         </button>
       </aside>
 
       {/* Mobile Bottom Nav */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-[#080808] border-t border-white/5 flex">
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-card border-t border-border flex">
         {tabs.map(tab => {
           const badge = tab.id === 'orders' ? pendingCount : tab.id === 'notifications' ? unreadCount : 0;
           return (
@@ -92,7 +92,7 @@ export default function AdminSidebar({ activeTab, setActiveTab, orders, notifica
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 p-3 flex flex-col items-center gap-1 text-[7px] font-black uppercase tracking-wide transition-colors relative ${
-                activeTab === tab.id ? 'text-primary' : 'text-white/25'
+                activeTab === tab.id ? 'text-primary' : 'text-foreground/25'
               }`}
             >
               <span className="text-lg">{tab.icon}</span>

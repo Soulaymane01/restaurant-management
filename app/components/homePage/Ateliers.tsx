@@ -14,7 +14,7 @@ export default function Ateliers({ branches, t, language }: AteliersProps) {
       {/* Watermark */}
       <span
         aria-hidden="true"
-        className="pointer-events-none select-none absolute top-32 left-1/2 -translate-x-1/2 text-[14rem] md:text-[25rem] font-black opacity-[0.03] tracking-[0.2em] leading-none whitespace-nowrap text-white"
+        className="pointer-events-none select-none absolute top-32 left-1/2 -translate-x-1/2 text-[14rem] md:text-[25rem] font-black opacity-[0.05] tracking-[0.2em] leading-none whitespace-nowrap text-secondary"
       >
         {t.ateliers.watermark}
       </span>
@@ -28,7 +28,7 @@ export default function Ateliers({ branches, t, language }: AteliersProps) {
           </p>
           <span className="w-12 h-px bg-primary/40" />
         </div>
-        <h3 className="text-6xl md:text-9xl lg:text-[11rem] font-black tracking-tighter serif italic leading-[0.8] text-white">
+        <h3 className="text-6xl md:text-9xl lg:text-[11rem] font-black tracking-tighter serif italic leading-[0.8] text-secondary">
           {t.ateliers.title}
         </h3>
       </div>
@@ -39,7 +39,7 @@ export default function Ateliers({ branches, t, language }: AteliersProps) {
           <Link
             href={`/${branch.id}/menu`}
             key={branch.id}
-            className="group relative h-[700px] md:h-[800px] bg-[#050505] rounded-[4rem] md:rounded-[5rem] overflow-hidden flex flex-col justify-end p-12 md:p-20 transition-all duration-1000 border border-white/5 hover:border-primary/30 shadow-2xl"
+            className="group relative h-[700px] md:h-[800px] bg-card rounded-[4rem] md:rounded-[5rem] overflow-hidden flex flex-col justify-end p-12 md:p-20 transition-all duration-1000 border border-border hover:border-primary/30 shadow-2xl"
           >
             {/* Background image */}
             <div className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-[1500ms] grayscale group-hover:grayscale-0">

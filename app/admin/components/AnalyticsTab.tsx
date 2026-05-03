@@ -93,13 +93,13 @@ export default function AnalyticsTab({ orders, menuItems }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tighter">Analytics</h1>
-          <p className="text-white/30 text-xs uppercase tracking-widest mt-1">Performance Insights</p>
+          <h1 className="text-4xl font-black tracking-tighter text-secondary">Analytics</h1>
+          <p className="text-foreground/30 text-xs uppercase tracking-widest mt-1">Performance Insights</p>
         </div>
-        <div className="flex bg-white/5 border border-white/8 p-1 rounded-2xl">
+        <div className="flex bg-secondary/5 border border-secondary/10 p-1 rounded-2xl">
           {(['daily', 'weekly', 'monthly'] as const).map(p => (
             <button key={p} onClick={() => setPeriod(p)}
-              className={`px-5 py-2 rounded-xl text-[10px] uppercase font-black tracking-widest transition-all ${period === p ? 'bg-primary text-white' : 'text-white/30 hover:text-white'}`}>
+              className={`px-5 py-2 rounded-xl text-[10px] uppercase font-black tracking-widest transition-all ${period === p ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-foreground/30 hover:text-secondary'}`}>
               {p}
             </button>
           ))}
@@ -107,16 +107,16 @@ export default function AnalyticsTab({ orders, menuItems }: Props) {
       </div>
 
       {/* Revenue Goal Tracker */}
-      <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-6 space-y-3">
+      <div className="bg-card border border-border rounded-2xl p-6 space-y-3 shadow-sm">
         <div className="flex items-center justify-between">
-          <p className="text-[9px] font-black uppercase tracking-widest text-white/30">Revenue Goal Progress</p>
+          <p className="text-[9px] font-black uppercase tracking-widest text-foreground/30">Revenue Goal Progress</p>
           {editingGoal ? (
             <div className="flex gap-2">
               <input type="number" value={goalInput} onChange={e => setGoalInput(e.target.value)} autoFocus
-                className="w-28 bg-black/60 border border-white/10 rounded-xl px-3 py-1.5 text-sm outline-none focus:border-primary/50 text-white"
+                className="w-28 bg-secondary/5 border border-secondary/10 rounded-xl px-3 py-1.5 text-sm outline-none focus:border-primary/50 text-secondary"
                 placeholder="Goal DH" />
-              <button onClick={saveGoal} className="px-3 py-1.5 bg-primary rounded-xl text-[9px] font-black uppercase hover:bg-white hover:text-black transition-all">Set</button>
-              <button onClick={() => setEditingGoal(false)} className="px-3 py-1.5 bg-white/5 rounded-xl text-[9px] font-black uppercase hover:bg-white/10 transition-all">✕</button>
+              <button onClick={saveGoal} className="px-3 py-1.5 bg-primary rounded-xl text-[9px] font-black uppercase hover:bg-secondary text-white transition-all">Set</button>
+              <button onClick={() => setEditingGoal(false)} className="px-3 py-1.5 bg-secondary/5 rounded-xl text-[9px] font-black uppercase hover:bg-secondary/10 transition-all">✕</button>
             </div>
           ) : (
             <button onClick={() => { setEditingGoal(true); setGoalInput(String(revenueGoal)); }}
@@ -127,33 +127,33 @@ export default function AnalyticsTab({ orders, menuItems }: Props) {
         </div>
         <div className="flex items-end justify-between">
           <p className="text-4xl font-black tracking-tighter text-primary">{analytics.revenue.toLocaleString()} DH</p>
-          <p className="text-white/30 text-sm font-black">/ {revenueGoal.toLocaleString()} DH goal <span className={`font-black ${goalPct >= 100 ? 'text-green-400' : 'text-white/50'}`}>({goalPct}%)</span></p>
+          <p className="text-foreground/30 text-sm font-black">/ {revenueGoal.toLocaleString()} DH goal <span className={`font-black ${goalPct >= 100 ? 'text-green-500' : 'text-foreground/50'}`}>({goalPct}%)</span></p>
         </div>
-        <div className="h-3 bg-white/5 rounded-full overflow-hidden">
-          <div className={`h-full rounded-full transition-all duration-1000 ${goalPct >= 100 ? 'bg-green-400' : 'bg-primary'}`} style={{ width: `${goalPct}%` }} />
+        <div className="h-3 bg-secondary/10 rounded-full overflow-hidden">
+          <div className={`h-full rounded-full transition-all duration-1000 ${goalPct >= 100 ? 'bg-green-500' : 'bg-primary'}`} style={{ width: `${goalPct}%` }} />
         </div>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Orders', value: analytics.active.length, sub: `${analytics.cancelled} cancelled`, accent: 'text-white' },
+          { label: 'Orders', value: analytics.active.length, sub: `${analytics.cancelled} cancelled`, accent: 'text-secondary' },
           { label: 'Avg Order', value: `${analytics.avgOrder} DH`, sub: 'Per transaction', accent: 'text-secondary' },
-          { label: 'Conversion', value: `${analytics.conversionRate}%`, sub: 'Non-cancelled rate', accent: 'text-green-400' },
+          { label: 'Conversion', value: `${analytics.conversionRate}%`, sub: 'Non-cancelled rate', accent: 'text-green-600' },
           { label: 'Repeat Rate', value: analytics.totalCustomers > 0 ? `${Math.round((analytics.repeatCustomers / analytics.totalCustomers) * 100)}%` : '0%', sub: `${analytics.repeatCustomers} returning`, accent: 'text-primary' },
         ].map(card => (
-          <div key={card.label} className="bg-white/[0.03] border border-white/5 rounded-2xl p-5 space-y-2">
-            <p className="text-[9px] font-black uppercase tracking-widest text-white/30">{card.label}</p>
+          <div key={card.label} className="bg-card border border-border rounded-2xl p-5 space-y-2 shadow-sm">
+            <p className="text-[9px] font-black uppercase tracking-widest text-foreground/30">{card.label}</p>
             <p className={`text-3xl font-black tracking-tighter ${card.accent}`}>{card.value}</p>
-            <p className="text-[10px] text-white/20">{card.sub}</p>
+            <p className="text-[10px] text-foreground/20">{card.sub}</p>
           </div>
         ))}
       </div>
 
       {/* 14-day Revenue Sparkline */}
-      <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-6">
+      <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-6">
-          <p className="text-[9px] font-black uppercase tracking-widest text-white/30">14-Day Revenue Trend</p>
+          <p className="text-[9px] font-black uppercase tracking-widest text-foreground/30">14-Day Revenue Trend</p>
           <p className="text-primary font-black text-sm">Peak: {Math.max(...analytics.dailyPoints.map(([,v]) => v))} DH</p>
         </div>
         <div className="flex items-end gap-1.5 h-24">
@@ -162,10 +162,10 @@ export default function AnalyticsTab({ orders, menuItems }: Props) {
             const isToday = date === new Date().toLocaleDateString('en-CA');
             return (
               <div key={date} className="flex-1 flex flex-col items-center gap-1 group" title={`${date}: ${val} DH`}>
-                <div className={`w-full rounded-t-sm transition-all duration-700 ${isToday ? 'bg-primary' : 'bg-white/10 group-hover:bg-primary/60'}`}
+                <div className={`w-full rounded-t-sm transition-all duration-700 ${isToday ? 'bg-primary' : 'bg-secondary/10 group-hover:bg-primary/60'}`}
                   style={{ height: `${Math.max(h, 2)}%`, minHeight: '3px' }} />
                 {(i % 7 === 0 || isToday) && (
-                  <span className={`text-[6px] font-black uppercase ${isToday ? 'text-primary' : 'text-white/20'}`}>
+                  <span className={`text-[6px] font-black uppercase ${isToday ? 'text-primary' : 'text-foreground/20'}`}>
                     {isToday ? 'Today' : new Date(date + 'T12:00').toLocaleDateString('en', { weekday: 'short' })}
                   </span>
                 )}
@@ -177,8 +177,8 @@ export default function AnalyticsTab({ orders, menuItems }: Props) {
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* Revenue by Branch */}
-        <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-6">
-          <p className="text-[9px] font-black uppercase tracking-widest text-white/30 mb-5">Revenue by Branch</p>
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+          <p className="text-[9px] font-black uppercase tracking-widest text-foreground/30 mb-5">Revenue by Branch</p>
           <div className="space-y-4">
             {analytics.byBranch.map(b => (
               <div key={b.name} className="space-y-1.5">

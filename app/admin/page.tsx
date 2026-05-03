@@ -69,7 +69,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-background text-foreground">
       <div className="flex min-h-screen">
         <AdminSidebar
           activeTab={activeTab}
