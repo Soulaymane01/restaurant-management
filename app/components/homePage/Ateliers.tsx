@@ -59,10 +59,10 @@ export default function Ateliers({ branches, t, language }: AteliersProps) {
                 </span>
                 <div className="w-12 h-px bg-primary/40 group-hover:w-32 transition-all duration-1000" />
               </div>
-              <h4 className="text-6xl md:text-8xl font-black tracking-tighter leading-none group-hover:text-primary transition-colors serif italic text-white">
-                Atelier {branch.names[language as keyof typeof branch.names]}.
+              <h4 className={`text-6xl md:text-8xl font-black leading-none group-hover:text-primary transition-colors text-white ${language === 'ar' ? '' : 'serif italic tracking-tighter'}`}>
+                {t.mahrous} {branch.names[language as keyof typeof branch.names]}.
               </h4>
-              <div className="flex flex-wrap items-center gap-10 text-[12px] font-black uppercase tracking-[0.5em] text-white/40 group-hover:text-white transition-all">
+              <div className={`flex flex-wrap items-center gap-10 text-[12px] font-black group-hover:text-white transition-all ${language === 'ar' ? 'text-white/60' : 'uppercase tracking-[0.5em] text-white/40'}`}>
                 <span className="flex items-center gap-3">📍 {branch.locations[language as keyof typeof branch.locations]}</span>
                 <span className="w-2 h-2 rounded-full bg-primary" />
                 <span className="flex items-center gap-3">🕒 {branch.hours[language as keyof typeof branch.hours]}</span>

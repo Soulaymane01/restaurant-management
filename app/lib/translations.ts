@@ -21,6 +21,7 @@ export const translations = {
     dash_orders: "Dashboard Orders",
     dash_customers: "Customers",
     dash_revenue: "Revenue",
+    mahrous: "MAHROUS",
     nav: {
       masterpieces: "Masterpieces",
       ateliers: "Ateliers",
@@ -126,6 +127,7 @@ export const translations = {
     dash_orders: "Commandes",
     dash_customers: "Clients",
     dash_revenue: "Revenu",
+    mahrous: "MAHROUS",
     nav: {
       masterpieces: "Chefs-d'œuvre",
       ateliers: "Ateliers",
@@ -231,6 +233,7 @@ export const translations = {
     dash_orders: "الطلبات",
     dash_customers: "الزبناء",
     dash_revenue: "الأرباح",
+    mahrous: "المحروسة",
     nav: {
       masterpieces: "روائعنا",
       ateliers: "ورش عملنا",
@@ -239,8 +242,8 @@ export const translations = {
     },
     hero: {
        eyebrow: "تميز الطهي",
-       beyond: "ما وراء",
-       dining: "العشاء.",
+       beyond: "طعم له",
+       dining: " تاريخ.",
        description: "سيمفونية من التراث المتوسطي والدقة المعاصرة، تعيد تعريف المعنى الحقيقي للتذوق.",
        select_atelier: "اختر ورشة",
        signature_piece: "القطعة المميزة",

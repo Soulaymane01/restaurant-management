@@ -1,35 +1,35 @@
 export const branches = [
   {
     id: "beni-makada",
-    names: { en: "Beni Makada", fr: "Beni Makada", ar: "بني مكادة" },
-    phone: "+212600000001",
+    names: { en: "Souk Mghazine", fr: "Souk Mghazine", ar: "صور معكازين" },
+    phone: "+212706849081",
     hours: { en: "11:00 AM - 12:00 AM", fr: "11:00 - 00:00", ar: "11:00 ص - 12:00 م" },
-    locations: { en: "Beni Makada, Tangier", fr: "Beni Makada, Tanger", ar: "بني مكادة، طنجة" },
+    locations: { en: "Souk Mghazine, Tangier", fr: "Souk Mghazine, Tanger", ar: "بني مكادة، طنجة" },
     lat: 35.7594,
     lng: -5.8000
   },
   {
     id: "mesnana",
-    names: { en: "Mesnana", fr: "Mesnana", ar: "مسنانة" },
-    phone: "+212600000002",
+    names: { en: "Renault High School", fr: "Lycée Renault", ar: "ثانوية رينول" },
+    phone: "+212706849081",
     hours: { en: "11:00 AM - 11:30 PM", fr: "11:00 - 23:30", ar: "11:00 ص - 11:30 م" },
-    locations: { en: "Mesnana, Tangier", fr: "Mesnana, Tanger", ar: "مسنانة، طنجة" },
+    locations: { en: "Renault High School, Tangier", fr: "Lycée Renault, Tanger", ar: "ثانوية رينول, طنجة" },
     lat: 35.7500,
     lng: -5.8500
   },
   {
     id: "aaouama",
-    names: { en: "Aaouama", fr: "Aaouama", ar: "العوامة" },
-    phone: "+212600000003",
+    names: { en: "Mauritania Cinema", fr: "Cinéma Mauritanie", ar: "سينما موريتانيا" },
+    phone: "+212706849081",
     hours: { en: "11:00 AM - 10:00 PM", fr: "11:00 - 22:00", ar: "11:00 ص - 10:00 م" },
-    locations: { en: "Aaouama, Tangier", fr: "Aaouama, Tanger", ar: "العوامة، طنجة" },
+    locations: { en: "Mauritania Cinema, Tangier", fr: "Cinéma Mauritanie, Tanger", ar: "سينما موريتانيا , طنجة" },
     lat: 35.7400,
     lng: -5.8200
   },
   {
     id: "drissia",
     names: { en: "Drissia", fr: "Drissia", ar: "إدريسية" },
-    phone: "+212600000004",
+    phone: "+212706849081",
     hours: { en: "11:00 AM - 12:00 AM", fr: "11:00 - 00:00", ar: "11:00 ص - 12:00 م" },
     locations: { en: "Drissia, Tangier", fr: "Drissia, Tanger", ar: "إدريسية، طنجة" },
     lat: 35.7600,
