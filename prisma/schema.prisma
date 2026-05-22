@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  customer  String
+  phone     String
+  address   String
+  total     Float
+  branch    String
+  date      DateTime    @default(now())
+  status    String      @default("pending")
+  note      String?
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id       Int    @id @default(autoincrement())
+  orderId  Int
+  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  name     String
+  quantity Int
+  price    Float
+}
+
+model MenuItem {
+  id           Int      @id @default(autoincrement())
+  categoryId   String
+  featured     Boolean  @default(false)
+  available    Boolean  @default(true)
+  nameEn       String
+  nameFr       String
+  nameAr       String
+  descEn       String
+  descFr       String
+  descAr       String
+  price        Float
+  image        String
+  optionsEn    String?
+  optionsFr    String?
+  optionsAr    String?
+}
+
+model Customer {
+  id         Int      @id @default(autoincrement())
+  name       String
+  phone      String   @unique
+  totalSpent Float    @default(0)
+  orderCount Int      @default(0)
+  lastOrder  DateTime @default(now())
+  favBranch  String
+  segment    String   @default("new")
+}
+
+model Notification {
+  id      Int      @id @default(autoincrement())
+  type    String
+  message String
+  date    DateTime @default(now())
+  read    Boolean  @default(false)
+}

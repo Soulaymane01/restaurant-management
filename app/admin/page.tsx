@@ -26,8 +26,14 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!isAuthorized) return;
-    setOrders(JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]'));
-    setMenuItems(JSON.parse(localStorage.getItem(MENU_KEY) || 'null') || initialMenuItems);
+    
+    // Fetch from database via Server Actions
+    import('../actions/orders').then(m => m.getOrders().then(setOrders));
+    import('../actions/menu').then(m => m.getMenuItems().then(items => {
+      if (items.length > 0) setMenuItems(items);
+      else setMenuItems(initialMenuItems);
+    }));
+    
     setNotifications(JSON.parse(localStorage.getItem(NOTIFICATIONS_KEY) || '[]'));
   }, [isAuthorized]);
 

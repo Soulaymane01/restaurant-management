@@ -69,24 +69,25 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
   const [bulkStatus, setBulkStatus] = useState<OrderStatus>('confirmed');
   const [showBulk, setShowBulk] = useState(false);
 
-  const saveOrders = (updated: Order[]) => {
-    setOrders(updated);
-    localStorage.setItem(ORDERS_KEY, JSON.stringify(updated));
-  };
-
-  const updateStatus = (id: number, status: OrderStatus) => {
-    saveOrders(orders.map(o => o.id === id ? { ...o, status } : o));
+  const updateStatus = async (id: number, status: OrderStatus) => {
+    setOrders(orders.map(o => o.id === id ? { ...o, status } : o));
     onNewNotification(`Order #${String(id).slice(-5)} updated to ${status}`);
+    const { updateOrderStatus } = await import('../../actions/orders');
+    await updateOrderStatus(id, status);
   };
 
-  const saveNote = (id: number) => {
-    saveOrders(orders.map(o => o.id === id ? { ...o, note: noteText } : o));
+  const saveNote = async (id: number) => {
+    setOrders(orders.map(o => o.id === id ? { ...o, note: noteText } : o));
     setNoteEditing(null);
+    const { updateOrderNote } = await import('../../actions/orders');
+    await updateOrderNote(id, noteText);
   };
 
-  const deleteOrder = (id: number) => {
+  const deleteOrderAction = async (id: number) => {
     if (!confirm('Delete this order permanently?')) return;
-    saveOrders(orders.filter(o => o.id !== id));
+    setOrders(orders.filter(o => o.id !== id));
+    const { deleteOrder } = await import('../../actions/orders');
+    await deleteOrder(id);
   };
 
   const toggleSelect = (id: number) => {
@@ -95,11 +96,14 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
     setSelected(next);
   };
 
-  const bulkUpdate = () => {
-    saveOrders(orders.map(o => selected.has(o.id) ? { ...o, status: bulkStatus } : o));
+  const bulkUpdate = async () => {
+    setOrders(orders.map(o => selected.has(o.id) ? { ...o, status: bulkStatus } : o));
+    const ids = Array.from(selected);
     setSelected(new Set());
     setShowBulk(false);
-    onNewNotification(`${selected.size} orders updated to ${bulkStatus}`);
+    onNewNotification(`${ids.length} orders updated to ${bulkStatus}`);
+    const { bulkUpdateOrders } = await import('../../actions/orders');
+    await bulkUpdateOrders(ids, bulkStatus);
   };
 
   const filtered = useMemo(() =>
@@ -266,7 +270,7 @@ export default function OrdersTab({ orders, setOrders, onNewNotification }: Prop
                           className="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-wider bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-all">
                           💬 WhatsApp
                         </a>
-                        <button onClick={() => deleteOrder(order.id)} className="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-wider bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all">
+                        <button onClick={() => deleteOrderAction(order.id)} className="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-wider bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all">
                           🗑 Delete
                         </button>
                       </div>

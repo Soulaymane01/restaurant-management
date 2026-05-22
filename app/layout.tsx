@@ -4,8 +4,20 @@ import { CartProvider } from "./components/CartProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Premium Restaurant - Tangier",
-  description: "Delicious food from Tangier's best branches.",
+  title: {
+    template: "%s | Mahrousa",
+    default: "Mahrousa - Premium Restaurant in Tangier",
+  },
+  description: "Experience the finest culinary journey at Mahrousa, Tangier's premier restaurant. Delicious food, premium ambiance, and unforgettable memories.",
+  keywords: ["restaurant", "Tangier", "premium food", "Mahrousa", "dining"],
+  openGraph: {
+    title: "Mahrousa - Premium Restaurant in Tangier",
+    description: "Experience the finest culinary journey at Mahrousa, Tangier's premier restaurant.",
+    url: "https://mahrousa.com", // Placeholder
+    siteName: "Mahrousa",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

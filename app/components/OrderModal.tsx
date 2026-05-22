@@ -16,34 +16,38 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
     
-    const orderId = Math.floor(1000 + Math.random() * 9000);
-    const orderDetails = cart.map(item => `   ▫️ ${item.quantity}x ${item.name} | ${item.price * item.quantity} DH`).join('\n');
-    const branchName = branch.names?.[language] || branch.name || 'Heritage';
-    const message = `🏛️ *RESTAURANT ATELIER - REÇU #${orderId}*\n━━━━━━━━━━━━━━━━━━━━\n\n📍 *DESTINATION:* ${branchName.toUpperCase()}\n\n👤 *CLIENT:* ${formData.name}\n📞 *CONTACT:* ${formData.phone}\n🏠 *ADRESSE:* ${formData.address}\n\n🥗 *SÉLECTION CULINAIRE:*\n${orderDetails}\n\n━━━━━━━━━━━━━━━━━━━━\n💰 *VALEUR TOTALE: ${totalPrice} DH*\n━━━━━━━━━━━━━━━━━━━━\n\n_Commande transmise via le site officiel._`;
-    
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${branch.phone.replace('+', '').replace(/\s/g, '')}?text=${encodedMessage}`;
+    try {
+      const { createOrder } = await import('../actions/orders');
+      const order = await createOrder({
+        customer: formData.name,
+        phone: formData.phone,
+        address: formData.address,
+        items: cart,
+        total: totalPrice,
+        branch: branch.id,
+      });
 
-    const newOrder = {
-      id: orderId, customer: formData.name, phone: formData.phone,
-      address: formData.address, items: cart, total: totalPrice,
-      branch: branch.id, date: new Date().toISOString(), status: 'pending'
-    };
-    
-    const existingOrders = JSON.parse(localStorage.getItem('restaurant_orders') || '[]');
-    localStorage.setItem('restaurant_orders', JSON.stringify([...existingOrders, newOrder]));
+      const orderDetails = cart.map(item => `   ▫️ ${item.quantity}x ${item.name} | ${item.price * item.quantity} DH`).join('\n');
+      const branchName = branch.names?.[language] || branch.name || 'Heritage';
+      const message = `🏛️ *RESTAURANT ATELIER - REÇU #${order.id}*\n━━━━━━━━━━━━━━━━━━━━\n\n📍 *DESTINATION:* ${branchName.toUpperCase()}\n\n👤 *CLIENT:* ${formData.name}\n📞 *CONTACT:* ${formData.phone}\n🏠 *ADRESSE:* ${formData.address}\n\n🥗 *SÉLECTION CULINAIRE:*\n${orderDetails}\n\n━━━━━━━━━━━━━━━━━━━━\n💰 *VALEUR TOTALE: ${totalPrice} DH*\n━━━━━━━━━━━━━━━━━━━━\n\n_Commande transmise via le site officiel._`;
+      
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${branch.phone.replace('+', '').replace(/\s/g, '')}?text=${encodedMessage}`;
 
-    setIsProcessing(false);
-    setIsSuccess(true);
+      setIsProcessing(false);
+      setIsSuccess(true);
 
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-      clearCart();
-      setIsSuccess(false);
-      onClose();
-    }, 1500);
+      setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+        clearCart();
+        setIsSuccess(false);
+        onClose();
+      }, 1500);
+    } catch (error) {
+      console.error('Failed to create order:', error);
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -127,7 +131,7 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
                   <button 
                     type="submit" 
                     disabled={isProcessing}
-                    className="w-full py-5 bg-primary text-white text-[10px] font-black uppercase tracking-[0.5em] rounded-2xl relative overflow-hidden group shadow-[0_10px_40px_rgba(236,63,40,0.2)] hover:shadow-[0_15px_50px_rgba(236,63,40,0.3)] transition-all"
+                    className="w-full py-5 bg-primary text-white text-[10px] font-black uppercase tracking-[0.5em] rounded-2xl relative overflow-hidden group shadow-[0_10px_40px_rgba(236,63,40,0.2)] hover:shadow-[0_15px_50px_rgba(236,63,40,0.3)] transition-all flex items-center justify-center gap-2"
                   >
                     {isProcessing ? (
                       <span className="flex items-center justify-center gap-3">
@@ -136,11 +140,11 @@ export default function OrderModal({ isOpen, onClose, branch }: { isOpen: boolea
                       </span>
                     ) : (
                       <>
-                        <span className="relative z-10">{t.order_labels.confirm_wa}</span>
-                        <div className="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                        <span className="absolute inset-0 flex items-center justify-center text-white font-black uppercase tracking-[0.4em] text-[10px] translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
-                          {t.order_labels.send_to} →
+                        <span className="relative z-10 flex items-center justify-center gap-2 transition-colors duration-500">
+                          {t.order_labels.confirm_wa}
+                          <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
                         </span>
+                        <div className="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                       </>
                     )}
                   </button>

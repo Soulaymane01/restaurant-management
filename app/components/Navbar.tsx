@@ -12,8 +12,8 @@ export default function Navbar({ scrolled, variant = 'landing', onCartOpen }: { 
 
   return (
     <>
-      <nav className={`fixed top-0 w-full z-[150] transition-all duration-700 ${scrolled ? 'bg-white/90 backdrop-blur-2xl py-5 border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.05)]' : 'py-12'}`}>
-        <div className="container flex justify-between items-center px-8 md:px-12">
+      <nav className={`fixed top-0 w-full z-[150] transition-all duration-700 pointer-events-none ${scrolled ? 'bg-white/90 backdrop-blur-2xl py-5 border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.05)]' : 'py-12'}`}>
+        <div className="container flex justify-between items-center px-8 md:px-12 pointer-events-auto">
           
           {/* Brand */}
           <div className="flex items-center gap-14">
@@ -22,7 +22,7 @@ export default function Navbar({ scrolled, variant = 'landing', onCartOpen }: { 
             </Link>
             
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-12 text-[9px] uppercase font-black tracking-[0.5em] text-foreground/40">
+            <div className="hidden lg:flex items-center gap-12 text-[9px] uppercase font-black tracking-[0.5em] text-foreground/40 relative z-50">
               <a href="/#signature" className="hover:text-primary hover:text-opacity-100 transition-all relative group py-2">
                 {t.nav.masterpieces}
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-hover:w-full transition-all duration-300" />
@@ -40,10 +40,11 @@ export default function Navbar({ scrolled, variant = 'landing', onCartOpen }: { 
           
           <div className="flex items-center gap-5">
             {/* Language Switcher */}
-            <div className="hidden sm:flex p-1 rounded-full border border-secondary/10 bg-secondary/5">
+            <div className="hidden sm:flex p-1 rounded-full border border-secondary/10 bg-secondary/5 relative z-50">
               {['en', 'fr', 'ar'].map((lang) => (
                 <button 
                   key={lang}
+                  type="button"
                   onClick={() => setLanguage(lang as any)} 
                   className={`px-4 py-2 rounded-full text-[8px] font-black tracking-widest transition-all ${language === lang ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-secondary/40 hover:text-secondary'}`}
                 >
@@ -106,6 +107,7 @@ export default function Navbar({ scrolled, variant = 'landing', onCartOpen }: { 
           {['en', 'fr', 'ar'].map((lang) => (
             <button 
               key={lang}
+              type="button"
               onClick={() => { setLanguage(lang as any); setMobileMenuOpen(false); }} 
               className={`px-8 py-3 rounded-full border text-xs font-black uppercase tracking-widest transition-all ${language === lang ? 'bg-primary border-primary text-white' : 'bg-secondary/5 border-secondary/10 text-secondary/50 hover:text-secondary'}`}
             >

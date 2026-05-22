@@ -29,20 +29,21 @@ export default function MenuTab({ menuItems, setMenuItems }: Props) {
   const [bulkPct, setBulkPct]         = useState('');
   const [showBulkPrice, setShowBulkPrice] = useState(false);
 
-  const save = (items: MenuItem[]) => {
+  const save = async (items: MenuItem[]) => {
     setMenuItems(items);
-    localStorage.setItem(MENU_KEY, JSON.stringify(items));
+    const { saveMenuItems } = await import('../../actions/menu');
+    await saveMenuItems(items);
   };
 
-  const updateField = (id: number, field: keyof MenuItem, value: any) =>
-    save(menuItems.map(i => i.id === id ? { ...i, [field]: value } : i));
+  const updateField = async (id: number, field: keyof MenuItem, value: any) =>
+    await save(menuItems.map(i => i.id === id ? { ...i, [field]: value } : i));
 
-  const toggleFeatured  = (id: number) => updateField(id, 'featured',  !menuItems.find(i => i.id === id)?.featured);
-  const toggleAvailable = (id: number) => updateField(id, 'available', !menuItems.find(i => i.id === id)?.available);
+  const toggleFeatured  = async (id: number) => await updateField(id, 'featured',  !menuItems.find(i => i.id === id)?.featured);
+  const toggleAvailable = async (id: number) => await updateField(id, 'available', !menuItems.find(i => i.id === id)?.available);
 
-  const deleteItem = (id: number) => {
+  const deleteItem = async (id: number) => {
     if (!confirm('Delete this item?')) return;
-    save(menuItems.filter(i => i.id !== id));
+    await save(menuItems.filter(i => i.id !== id));
   };
 
   const commitEdit = () => {

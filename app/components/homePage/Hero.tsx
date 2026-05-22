@@ -50,13 +50,13 @@ export default function Hero({ t }: HeroProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-10">
             <a
               href="#locations"
-              className="group relative px-14 py-7 overflow-hidden rounded-full bg-primary text-white font-black uppercase tracking-[0.3em] text-[11px] transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-primary/40 border border-primary/20"
+              className="group relative px-14 py-7 overflow-hidden rounded-full bg-primary text-white font-black uppercase tracking-[0.3em] text-[11px] transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-primary/40 border border-primary/20 flex items-center justify-center gap-2"
             >
-              <span className="relative z-10">{t.hero.select_atelier}</span>
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
-              <span className="absolute inset-0 flex items-center justify-center text-black font-black uppercase tracking-[0.3em] text-[11px] translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
-                {t.hero.select_atelier} →
+              <span className="relative z-10 transition-colors duration-500 group-hover:text-black flex items-center gap-2 justify-center">
+                {t.hero.select_atelier}
+                <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
               </span>
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
             </a>
             <a
               href="#signature"
@@ -69,7 +69,7 @@ export default function Hero({ t }: HeroProps) {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-secondary/30 animate-bounce">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-secondary/30 animate-bounce">
         <span className="text-[10px] uppercase font-black tracking-[0.6em]">{t.hero.explore}</span>
         <div className="w-[1px] h-20 bg-gradient-to-b from-secondary/40 to-transparent" />
       </div>

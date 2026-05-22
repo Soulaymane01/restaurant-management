@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Al Mahrousa Restaurant - Frontend Web Application
+
+Welcome to the Al Mahrousa Restaurant Web Application repository. This project is a premium, multi-language Next.js web application built for the Al Mahrousa Restaurant chain in Tangier, Morocco.
+
+## Overview
+
+The application is built using modern web development practices and technologies:
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS with a custom Glassmorphism and premium design system
+- **Language Support:** Built-in multi-language support (English, French, Arabic) via custom Context Provider
+- **State Management:** React Context API for Cart and Language state
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ensure you have Node.js (v18 or higher) installed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Documentation
 
-## Learn More
+For a detailed technical overview, architectural decisions, and component breakdown, please refer to the [DOCUMENTATION.md](./DOCUMENTATION.md) file included in this repository.
 
-To learn more about Next.js, take a look at the following resources:
+## Contribution Guidelines
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Ensure your code follows the existing style, specifically regarding Tailwind classes and custom CSS variables defined in `app/globals.css`.
+- Any updates to static text must be reflected in `app/lib/translations.ts` across all three languages.
+- When adding new menu items or branches, update `app/lib/branch-data.ts`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The project is optimized for deployment on Vercel. 
+Simply link the repository to a Vercel project, and it will automatically build and deploy using the `next build` command.
