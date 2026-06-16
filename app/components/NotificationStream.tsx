@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export type NotificationType = 'info' | 'order' | 'warning' | 'alert' | 'success';
 
@@ -17,6 +17,9 @@ export function useNotificationStream(channel: string = 'system') {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [connected, setConnected] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  // Track consecutive errors to avoid flashing "Déconnecté" on normal SSE reconnects
+  const errorCountRef = useRef(0);
+  const disconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -39,12 +42,16 @@ export function useNotificationStream(channel: string = 'system') {
     fetchHistory();
 
     // 2. Setup SSE connection
-    // NOTE: When Person 4 implements Auth, we might need to adjust this
-    // if a token needs to be passed in the URL (e.g. &token=XYZ)
     const eventSource = new EventSource(`http://localhost:8000/stream?channel=${channel}`);
 
     eventSource.onopen = () => {
       if (isMounted) {
+        // Clear any pending disconnect timer on successful reconnect
+        errorCountRef.current = 0;
+        if (disconnectTimerRef.current) {
+          clearTimeout(disconnectTimerRef.current);
+          disconnectTimerRef.current = null;
+        }
         setConnected(true);
         setError(null);
       }
@@ -66,16 +73,27 @@ export function useNotificationStream(channel: string = 'system') {
     };
 
     eventSource.onerror = (err) => {
-      console.error("SSE Connection Error", err);
-      if (isMounted) {
-        setConnected(false);
-        setError("Connexion perdue. Tentative de reconnexion...");
+      // onerror fires on every SSE timeout/reconnect — this is normal browser behavior.
+      // EventSource auto-reconnects, so we debounce: only show "Déconnecté" after
+      // 2 consecutive errors with a 4-second delay.
+      errorCountRef.current += 1;
+      if (errorCountRef.current >= 2 && isMounted) {
+        disconnectTimerRef.current = setTimeout(() => {
+          if (isMounted) {
+            setConnected(false);
+            setError("Connexion perdue. Tentative de reconnexion...");
+          }
+        }, 4000);
       }
     };
 
     // Cleanup on unmount or channel change
     return () => {
       isMounted = false;
+      errorCountRef.current = 0;
+      if (disconnectTimerRef.current) {
+        clearTimeout(disconnectTimerRef.current);
+      }
       eventSource.close();
       setConnected(false);
     };

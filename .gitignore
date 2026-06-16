@@ -42,3 +42,9 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
+
+# python backend
+backend/venv/
+backend/__pycache__/
+__pycache__/
+*.pyc

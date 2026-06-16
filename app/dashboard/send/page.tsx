@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../../components/AuthProvider';
 
 export default function SendNotificationPage() {
   const router = useRouter();
+  const { token } = useAuth();
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
@@ -47,7 +49,7 @@ export default function SendNotificationPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Example
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -63,7 +65,20 @@ export default function SendNotificationPage() {
         }, 1500);
       } else {
         const errorData = await response.json().catch(() => null);
-        throw new Error(errorData?.detail || 'Erreur lors de l\'envoi');
+        // FastAPI can return detail as a string OR an array of validation error objects
+        const detail = errorData?.detail;
+        let message: string;
+        if (typeof detail === 'string') {
+          message = detail;
+        } else if (Array.isArray(detail)) {
+          // Pydantic validation errors: [{loc, msg, type}, ...]
+          message = detail.map((e: any) => e.msg || JSON.stringify(e)).join(', ');
+        } else if (detail) {
+          message = JSON.stringify(detail);
+        } else {
+          message = 'Erreur lors de l\'envoi';
+        }
+        throw new Error(message);
       }
     } catch (err: any) {
       console.error(err);
