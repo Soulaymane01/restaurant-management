@@ -1,6 +1,7 @@
 import os
 import json
 import redis
+import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -42,15 +43,21 @@ def get_history(channel: str, limit: int = 50):
     messages = redis_client.lrange(history_key, 0, limit - 1)
     return [json.loads(msg) for msg in messages]
 
-def subscribe_channel(channel: str):
+async def subscribe_channel(channel: str):
     channel_name = get_channel_name(channel)
     pubsub = redis_client.pubsub()
     pubsub.subscribe(channel_name)
     
     try:
-        for message in pubsub.listen():
-            if message['type'] == 'message':
-                yield f"data: {message['data']}\n\n"
+        while True:
+            message = pubsub.get_message(ignore_subscribe_messages=True)
+            if message and message['type'] == 'message':
+                # sse-starlette 3.x automatically adds "data: ...\n\n" framing.
+                # Yield only the raw JSON string — do NOT add the "data: " prefix manually.
+                yield message['data']
+            await asyncio.sleep(0.1)  # Yield control to event loop so we don't block
+    except asyncio.CancelledError:
+        pass
     except Exception as e:
         print(f"SSE Connection Error: {e}")
     finally:
