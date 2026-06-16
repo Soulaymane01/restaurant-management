@@ -2,11 +2,30 @@
 
 import { useState } from 'react';
 import { useNotificationStream, Notification } from '../components/NotificationStream';
+import { useAuth } from '../components/AuthProvider';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const [activeChannel, setActiveChannel] = useState('system');
   const { notifications, connected, error } = useNotificationStream(activeChannel);
+  const { user, token, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      // Tell the backend to invalidate the Redis session token
+      await fetch('http://localhost:8000/logout', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+    } catch (_) {
+      // Even if the request fails, clear the local session
+    } finally {
+      logout();
+      router.replace('/login');
+    }
+  };
 
   const channels = ['system', 'alerts', 'chat', 'orders', 'tasks'];
 
@@ -75,6 +94,28 @@ export default function DashboardPage() {
 
   return (
     <div className="container py-12 animate-fade-in">
+      {/* Dashboard Header Bar */}
+      <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-black text-sm">
+            {user?.username?.charAt(0).toUpperCase() || 'U'}
+          </div>
+          <div>
+            <p className="text-xs text-gray-400 uppercase tracking-widest font-bold">Bienvenue</p>
+            <p className="font-bold text-sm">{user?.username || 'Utilisateur'}</p>
+          </div>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold text-red-500 border border-red-200 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          Déconnexion
+        </button>
+      </div>
+
       <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h1 className="text-4xl brand-font mb-2">Notifications Hub</h1>
