@@ -242,8 +242,6 @@ export default function DashboardPage() {
 }
 ```
 
-![Redirect to login when unauthenticated](/screenshots/protected-redirect.png)
-
 ---
 
 ### 4.4 `app/login/page.tsx` — Login Page
