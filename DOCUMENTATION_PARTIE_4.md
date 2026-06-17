@@ -242,6 +242,8 @@ export default function DashboardPage() {
 }
 ```
 
+![Redirect to login when unauthenticated](/screenshots/protected-redirect.png)
+
 ---
 
 ### 4.4 `app/login/page.tsx` — Login Page
@@ -282,6 +284,8 @@ A login form with username and password fields.
 └──────────────────────────────────┘
 ```
 
+![Login page screenshot](/screenshots/login.png)
+
 ---
 
 ### 4.5 `app/page.tsx` — Landing Page
@@ -309,6 +313,8 @@ A generic landing page presenting the real-time notification application.
 - Subtle pulse animation on the scroll indicator
 - "Anton" font for headings
 - Color palette: primary red (#EC3F28), secondary blue (#3950A1)
+
+![Landing page screenshot](/screenshots/landing.png)
 
 ---
 
